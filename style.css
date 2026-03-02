@@ -59,6 +59,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Outfit', sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 body {
@@ -265,10 +267,6 @@ body {
     transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
-    /* Enable native scrolling */
-    -webkit-overflow-scrolling: touch;
-    /* Smooth scrolling on iOS */
 }
 
 .view-section.active {
@@ -434,6 +432,8 @@ body {
 .scrollable-y {
     flex: 1;
     min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     padding-right: 1rem;
     padding-bottom: 2rem;
     /* Soft fade at bottom for scrolling hint */
@@ -768,6 +768,8 @@ body {
     background: var(--surface-1);
     width: 90%;
     max-width: 650px;
+    max-height: 90vh;
+    overflow-y: auto;
     border-radius: var(--border-radius-lg);
     padding: 3rem;
     position: relative;
