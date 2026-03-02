@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initClock();
     initNavigation();
     initIdleTimer();
+    initHistoryState();
 });
 
 // --- Navigation Handling (SPA Style) ---
@@ -18,13 +19,20 @@ function initNavigation() {
         item.addEventListener('click', () => {
             const targetId = item.getAttribute('data-target');
             if (targetId) {
-                switchTab(targetId);
+                navigateTo(targetId);
                 if (window.innerWidth <= 1024) {
                     closeSidebar();
                 }
             }
         });
     });
+}
+
+function navigateTo(targetId, pushHistory = true) {
+    if (pushHistory) {
+        history.pushState({ page: targetId }, "", `#${targetId}`);
+    }
+    switchTab(targetId);
 }
 
 function switchTab(targetId) {
@@ -44,15 +52,72 @@ function switchTab(targetId) {
             // reset scroll position if it has a scrollable area
             const scrollArea = section.querySelector('.scrollable-y');
             if (scrollArea) scrollArea.scrollTop = 0;
+            if (section.classList.contains('scrollable-y')) section.scrollTop = 0;
         }
     });
+
+    // Update mobile header buttons
+    updateMobileHeader(targetId);
 
     // Reset idle timer when user interacts via navigation
     resetIdleTimer();
 }
 
-// Make switchTab available globally for inline onclick handlers in HTML
+function updateMobileHeader(targetId) {
+    const backBtn = document.getElementById('mobile-back-btn');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+
+    if (!backBtn || !menuBtn) return;
+
+    if (targetId === 'home') {
+        backBtn.style.display = 'none';
+        menuBtn.style.display = 'flex';
+    } else {
+        backBtn.style.display = 'flex';
+        menuBtn.style.display = 'none';
+    }
+}
+
+function navigateBack() {
+    if (history.state) {
+        history.back();
+    } else {
+        navigateTo('home');
+    }
+}
+
+function initHistoryState() {
+    // Set initial state
+    const hash = window.location.hash.replace('#', '') || 'home';
+    history.replaceState({ page: hash }, "", `#${hash}`);
+    switchTab(hash);
+
+    // Handle back/forward browser buttons
+    const handleStateChange = (event) => {
+        const modal = document.getElementById('info-modal');
+        if (modal && modal.classList.contains('active')) {
+            closeModal();
+        }
+
+        const hash = window.location.hash.replace('#', '');
+
+        if (event && event.type === 'popstate' && event.state && event.state.page) {
+            switchTab(event.state.page);
+        } else if (hash) {
+            switchTab(hash);
+        } else {
+            switchTab('home');
+        }
+    };
+
+    window.addEventListener('popstate', handleStateChange);
+    window.addEventListener('hashchange', handleStateChange);
+}
+
+// Make functions available globally for inline onclick handlers in HTML
 window.switchTab = switchTab;
+window.navigateTo = navigateTo;
+window.navigateBack = navigateBack;
 
 // --- Real-time Clock Widget ---
 
@@ -115,7 +180,7 @@ function returnToHome() {
     // Only switch if we aren't already on home to prevent unnecessary animations
     const currentActiveSection = document.querySelector('.view-section.active');
     if (currentActiveSection && currentActiveSection.id !== 'home') {
-        switchTab('home');
+        navigateTo('home');
     }
 }
 
@@ -158,6 +223,8 @@ function createRipple(x, y) {
 
 function openModal(title, HTMLcontent) {
     const modal = document.getElementById('info-modal');
+    if (!modal) return;
+
     const titleEl = document.getElementById('modal-title');
     const bodyEl = document.getElementById('modal-body');
 
@@ -166,12 +233,17 @@ function openModal(title, HTMLcontent) {
 
     modal.classList.add('active');
     resetIdleTimer();
+
+    // Push state for modal to support back button closing
+    history.pushState({ page: 'modal', prev: history.state?.page || 'home' }, "", "#modal");
 }
 
 function closeModal() {
     const modal = document.getElementById('info-modal');
-    modal.classList.remove('active');
-    resetIdleTimer();
+    if (modal && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+        resetIdleTimer();
+    }
 }
 
 // Close modal if clicked outside content
@@ -359,7 +431,7 @@ function openNativeInstitutePage(id) {
         openModal("External Website Link", "Note: In a true kiosk standalone environment, tapping this would launch a secure encapsulated browser window directing you to <b>" + data.link + "</b>. For this demo, navigation is kept internal.");
     };
 
-    switchTab('institute-detail-native');
+    navigateTo('institute-detail-native');
 }
 
 window.openNativeInstitutePage = openNativeInstitutePage;
