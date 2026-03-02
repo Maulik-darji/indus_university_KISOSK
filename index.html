@@ -3,14 +3,16 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Indus University digital kiosk for programs, institutes, campus information, and events.">
+    <meta name="theme-color" content="#f4f4f4">
     <title>Indus University - Digital Kiosk</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Iconify SVG Framework -->
-    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js"></script>
+    <script src="https://code.iconify.design/3/3.1.0/iconify.min.js" defer></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,10 +28,12 @@
                 <h1 class="logo-text">INDUS KIOSK</h1>
             </div>
             <div class="mobile-header-actions">
-                <button class="mobile-back-btn" id="mobile-back-btn" onclick="navigateBack()">
+                <button class="mobile-back-btn" id="mobile-back-btn" onclick="navigateBack()"
+                    aria-label="Go back">
                     <span class="iconify" data-icon="solar:arrow-left-line-duotone"></span>
                 </button>
-                <button class="hamburger-btn" id="mobile-menu-btn" onclick="toggleSidebar()">
+                <button class="hamburger-btn" id="mobile-menu-btn" onclick="toggleSidebar()"
+                    aria-label="Open menu">
                     <span class="iconify" data-icon="solar:hamburger-menu-linear"></span>
                 </button>
             </div>
@@ -49,7 +53,7 @@
                         <p class="sidebar-tagline">Where Practice Meets Theory</p>
                     </div>
                 </div>
-                <button class="close-sidebar-btn" onclick="toggleSidebar()">
+                <button class="close-sidebar-btn" onclick="toggleSidebar()" aria-label="Close menu">
                     <span class="iconify" data-icon="solar:close-circle-bold-duotone"></span>
                 </button>
             </div>
@@ -132,11 +136,14 @@
                 <!-- Latest News Banner -->
                 <div class="news-ticker">
                     <span class="ticker-label">LATEST</span>
-                    <div class="ticker-content">
-                        <marquee behavior="scroll" direction="left" scrollamount="5">
-                            ★ Get Ready for INDUS CUP 2K26! Stand a Chance to Win Cash Prizes up to ₹10,00,000!
-                            &nbsp;&nbsp;&nbsp;&nbsp; ★ Indus Hackathon 2025 organized by CSE Department
-                        </marquee>
+                    <div class="ticker-content" aria-live="polite">
+                        <div class="ticker-track">
+                            <span>★ Get Ready for INDUS CUP 2K26! Stand a Chance to Win Cash Prizes up to ₹10,00,000!</span>
+                            <span aria-hidden="true">★</span>
+                            <span>Indus Hackathon 2025 organized by CSE Department</span>
+                            <span aria-hidden="true">★</span>
+                            <span>Admissions open for Undergraduate, Graduate, and Ph.D. programs</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -478,9 +485,9 @@
         </main>
 
         <!-- Universal Info Modal -->
-        <div class="modal-overlay" id="info-modal">
-            <div class="modal-content">
-                <button class="btn-close" onclick="closeModal()">
+        <div class="modal-overlay" id="info-modal" aria-hidden="true">
+            <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+                <button class="btn-close" onclick="closeModal()" aria-label="Close dialog">
                     <span class="iconify" data-icon="solar:close-circle-bold-duotone"></span>
                 </button>
                 <h2 id="modal-title">Modal Title</h2>
@@ -497,7 +504,7 @@
         <canvas id="touch-ripple"></canvas>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </body>
 
 </html>

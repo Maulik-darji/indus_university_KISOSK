@@ -6,9 +6,29 @@
 document.addEventListener('DOMContentLoaded', () => {
     initClock();
     initNavigation();
+    initKeyboardAccessibility();
+    initGlobalInteractions();
     initIdleTimer();
     initHistoryState();
 });
+
+let lastFocusedElement = null;
+
+function resolveSectionId(targetId) {
+    if (!targetId) return 'home';
+    const section = document.getElementById(targetId);
+    return section && section.classList.contains('view-section') ? targetId : 'home';
+}
+
+function getCurrentPageId() {
+    const activeSection = document.querySelector('.view-section.active');
+    return activeSection ? activeSection.id : 'home';
+}
+
+function isModalOpen() {
+    const modal = document.getElementById('info-modal');
+    return !!(modal && modal.classList.contains('active'));
+}
 
 // --- Navigation Handling (SPA Style) ---
 
@@ -16,7 +36,10 @@ function initNavigation() {
     const navItems = document.querySelectorAll('.nav-item');
 
     navItems.forEach(item => {
-        item.addEventListener('click', () => {
+        item.setAttribute('role', 'button');
+        item.setAttribute('tabindex', '0');
+
+        const handleActivate = () => {
             const targetId = item.getAttribute('data-target');
             if (targetId) {
                 navigateTo(targetId);
@@ -24,31 +47,104 @@ function initNavigation() {
                     closeSidebar();
                 }
             }
+        };
+
+        item.addEventListener('click', () => {
+            handleActivate();
+        });
+
+        item.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                handleActivate();
+            }
         });
     });
 }
 
-function navigateTo(targetId, pushHistory = true) {
-    if (pushHistory) {
-        history.pushState({ page: targetId }, "", `#${targetId}`);
+function initKeyboardAccessibility() {
+    const clickables = document.querySelectorAll('.action-card, .info-card.image-card, .list-item, .event-card');
+
+    clickables.forEach((element) => {
+        element.setAttribute('tabindex', '0');
+        element.setAttribute('role', 'button');
+
+        element.addEventListener('keydown', (event) => {
+            if (event.target !== element) return;
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                element.click();
+            }
+        });
+    });
+}
+
+function initGlobalInteractions() {
+    const modalOverlay = document.getElementById('info-modal');
+    if (modalOverlay) {
+        modalOverlay.addEventListener('click', (event) => {
+            if (event.target === modalOverlay) {
+                closeModal();
+            }
+        });
     }
-    switchTab(targetId);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+
+        if (isModalOpen()) {
+            closeModal();
+            return;
+        }
+
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar && sidebar.classList.contains('open')) {
+            closeSidebar();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 1024) {
+            closeSidebar();
+        }
+    });
+}
+
+function navigateTo(targetId, pushHistory = true) {
+    const resolvedTarget = resolveSectionId(targetId);
+
+    if (isModalOpen()) {
+        closeModal(true);
+    }
+
+    if (pushHistory) {
+        history.pushState({ page: resolvedTarget }, "", `#${resolvedTarget}`);
+    }
+
+    switchTab(resolvedTarget);
 }
 
 function switchTab(targetId) {
+    const resolvedTarget = resolveSectionId(targetId);
+
     // Update active nav item
     document.querySelectorAll('.nav-item').forEach(item => {
-        item.classList.remove('active');
-        if (item.getAttribute('data-target') === targetId) {
-            item.classList.add('active');
+        const isActive = item.getAttribute('data-target') === resolvedTarget;
+        item.classList.toggle('active', isActive);
+        if (isActive) {
+            item.setAttribute('aria-current', 'page');
+        } else {
+            item.removeAttribute('aria-current');
         }
     });
 
     // Update active view section
+    let activeSection = null;
     document.querySelectorAll('.view-section').forEach(section => {
-        section.classList.remove('active');
-        if (section.id === targetId) {
-            section.classList.add('active');
+        const isActive = section.id === resolvedTarget;
+        section.classList.toggle('active', isActive);
+        if (isActive) {
+            activeSection = section;
             // reset scroll position if it has a scrollable area
             const scrollArea = section.querySelector('.scrollable-y');
             if (scrollArea) scrollArea.scrollTop = 0;
@@ -57,10 +153,12 @@ function switchTab(targetId) {
     });
 
     // Update mobile header buttons
-    updateMobileHeader(targetId);
+    updateMobileHeader(resolvedTarget);
 
     // Reset idle timer when user interacts via navigation
     resetIdleTimer();
+
+    return activeSection ? activeSection.id : 'home';
 }
 
 function updateMobileHeader(targetId) {
@@ -79,39 +177,51 @@ function updateMobileHeader(targetId) {
 }
 
 function navigateBack() {
-    if (history.state) {
-        history.back();
+    if (isModalOpen()) {
+        closeModal();
+        return;
+    }
+
+    const currentPage = getCurrentPageId();
+    if (currentPage !== 'home') {
+        switchTab('home');
+        history.replaceState({ page: 'home' }, "", '#home');
     } else {
-        navigateTo('home');
+        closeSidebar();
     }
 }
 
 function initHistoryState() {
     // Set initial state
-    const hash = window.location.hash.replace('#', '') || 'home';
-    history.replaceState({ page: hash }, "", `#${hash}`);
-    switchTab(hash);
+    const hash = window.location.hash.replace('#', '');
+    const safeHash = hash === 'modal' ? 'home' : hash;
+    const initialPage = resolveSectionId(safeHash || 'home');
+    history.replaceState({ page: initialPage }, "", `#${initialPage}`);
+    switchTab(initialPage);
 
     // Handle back/forward browser buttons
     const handleStateChange = (event) => {
-        const modal = document.getElementById('info-modal');
-        if (modal && modal.classList.contains('active')) {
-            closeModal();
+        if (isModalOpen()) {
+            closeModal(true);
         }
 
-        const hash = window.location.hash.replace('#', '');
+        const hashPage = resolveSectionId(window.location.hash.replace('#', ''));
+        const statePage = event && event.state && event.state.page ? resolveSectionId(event.state.page) : null;
+        const nextPage = statePage || hashPage || 'home';
+        switchTab(nextPage);
+    };
 
-        if (event && event.type === 'popstate' && event.state && event.state.page) {
-            switchTab(event.state.page);
-        } else if (hash) {
-            switchTab(hash);
-        } else {
-            switchTab('home');
+    const handleHashChange = () => {
+        if (isModalOpen()) {
+            closeModal(true);
         }
+        const nextPage = resolveSectionId(window.location.hash.replace('#', ''));
+        history.replaceState({ page: nextPage }, "", `#${nextPage}`);
+        switchTab(nextPage);
     };
 
     window.addEventListener('popstate', handleStateChange);
-    window.addEventListener('hashchange', handleStateChange);
+    window.addEventListener('hashchange', handleHashChange);
 }
 
 // Make functions available globally for inline onclick handlers in HTML
@@ -180,7 +290,8 @@ function returnToHome() {
     // Only switch if we aren't already on home to prevent unnecessary animations
     const currentActiveSection = document.querySelector('.view-section.active');
     if (currentActiveSection && currentActiveSection.id !== 'home') {
-        navigateTo('home');
+        switchTab('home');
+        history.replaceState({ page: 'home' }, "", '#home');
     }
 }
 
@@ -227,36 +338,45 @@ function openModal(title, HTMLcontent) {
 
     const titleEl = document.getElementById('modal-title');
     const bodyEl = document.getElementById('modal-body');
+    if (!titleEl || !bodyEl) return;
 
-    titleEl.innerHTML = title;
+    titleEl.textContent = title;
     bodyEl.innerHTML = HTMLcontent;
 
     modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
     resetIdleTimer();
 
-    // Push state for modal to support back button closing
-    history.pushState({ page: 'modal', prev: history.state?.page || 'home' }, "", "#modal");
+    lastFocusedElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    const closeButton = modal.querySelector('.btn-close');
+    if (closeButton instanceof HTMLElement) {
+        closeButton.focus();
+    }
+
+    // Keep page hash stable and push only modal state.
+    const currentPage = getCurrentPageId();
+    if (!history.state || !history.state.modal) {
+        history.pushState({ page: currentPage, modal: true }, "", `#${currentPage}`);
+    }
 }
 
-function closeModal() {
+function closeModal(fromHistory = false) {
     const modal = document.getElementById('info-modal');
     if (modal && modal.classList.contains('active')) {
         modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
         resetIdleTimer();
+
+        if (!fromHistory && history.state && history.state.modal) {
+            history.back();
+        }
+
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+            lastFocusedElement.focus();
+        }
+        lastFocusedElement = null;
     }
 }
-
-// Close modal if clicked outside content
-document.addEventListener('DOMContentLoaded', () => {
-    const modalOverlay = document.getElementById('info-modal');
-    if (modalOverlay) {
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                closeModal();
-            }
-        });
-    }
-});
 
 // --- Mobile Sidebar Toggle ---
 
@@ -284,7 +404,6 @@ window.closeModal = closeModal;
 window.toggleSidebar = toggleSidebar;
 window.closeSidebar = closeSidebar;
 
-// --- Native Institute Data & View Logic ---
 // --- Native Institute Data & View Logic ---
 const instituteData = {
     'IITE': {
@@ -400,16 +519,29 @@ function openNativeInstitutePage(id) {
     const data = instituteData[id];
     if (!data) return;
 
-    document.getElementById('native-inst-title').textContent = data.title;
-    document.getElementById('native-inst-fullname').textContent = data.fullName;
-    document.getElementById('native-inst-desc').textContent = data.description;
+    const titleEl = document.getElementById('native-inst-title');
+    const fullNameEl = document.getElementById('native-inst-fullname');
+    const shortDescEl = document.getElementById('native-inst-desc-short');
+    const descEl = document.getElementById('native-inst-desc');
+    const iconEl = document.getElementById('native-inst-icon');
+    const programsList = document.getElementById('native-inst-programs');
+    const visitBtn = document.getElementById('native-inst-visit-btn');
+
+    if (!titleEl || !fullNameEl || !descEl || !iconEl || !programsList || !visitBtn) {
+        return;
+    }
+
+    titleEl.textContent = data.title;
+    fullNameEl.textContent = data.fullName;
+    descEl.textContent = data.description;
+    if (shortDescEl) {
+        shortDescEl.textContent = data.description;
+    }
 
     // Update the icon in the hero banner
-    const iconEl = document.getElementById('native-inst-icon');
     iconEl.setAttribute('data-icon', data.icon);
 
     // Populate Programs List
-    const programsList = document.getElementById('native-inst-programs');
     programsList.innerHTML = '';
     data.programs.forEach(prog => {
         const li = document.createElement('li');
@@ -426,9 +558,8 @@ function openNativeInstitutePage(id) {
     });
 
     // Handle the Visit button behavior
-    const visitBtn = document.getElementById('native-inst-visit-btn');
     visitBtn.onclick = () => {
-        openModal("External Website Link", "Note: In a true kiosk standalone environment, tapping this would launch a secure encapsulated browser window directing you to <b>" + data.link + "</b>. For this demo, navigation is kept internal.");
+        window.open(data.link, '_blank', 'noopener,noreferrer');
     };
 
     navigateTo('institute-detail-native');
