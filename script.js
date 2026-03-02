@@ -112,6 +112,12 @@ function initGlobalInteractions() {
 
 function navigateTo(targetId, pushHistory = true) {
     const resolvedTarget = resolveSectionId(targetId);
+    const currentPage = getCurrentPageId();
+
+    if (resolvedTarget === currentPage) {
+        resetIdleTimer();
+        return currentPage;
+    }
 
     if (isModalOpen()) {
         closeModal(true);
@@ -122,14 +128,16 @@ function navigateTo(targetId, pushHistory = true) {
     }
 
     switchTab(resolvedTarget);
+    return resolvedTarget;
 }
 
 function switchTab(targetId) {
     const resolvedTarget = resolveSectionId(targetId);
+    const navHighlightTarget = resolvedTarget === 'institute-detail-native' ? 'institutes' : resolvedTarget;
 
     // Update active nav item
     document.querySelectorAll('.nav-item').forEach(item => {
-        const isActive = item.getAttribute('data-target') === resolvedTarget;
+        const isActive = item.getAttribute('data-target') === navHighlightTarget;
         item.classList.toggle('active', isActive);
         if (isActive) {
             item.setAttribute('aria-current', 'page');
@@ -167,13 +175,8 @@ function updateMobileHeader(targetId) {
 
     if (!backBtn || !menuBtn) return;
 
-    if (targetId === 'home') {
-        backBtn.style.display = 'none';
-        menuBtn.style.display = 'flex';
-    } else {
-        backBtn.style.display = 'flex';
-        menuBtn.style.display = 'none';
-    }
+    backBtn.style.display = targetId === 'home' ? 'none' : 'flex';
+    menuBtn.style.display = 'flex';
 }
 
 function navigateBack() {
@@ -183,10 +186,19 @@ function navigateBack() {
     }
 
     const currentPage = getCurrentPageId();
+    if (currentPage === 'institute-detail-native') {
+        switchTab('institutes');
+        history.replaceState({ page: 'institutes' }, "", '#institutes');
+        return;
+    }
+
     if (currentPage !== 'home') {
         switchTab('home');
         history.replaceState({ page: 'home' }, "", '#home');
-    } else {
+        return;
+    }
+
+    if (window.innerWidth <= 1024) {
         closeSidebar();
     }
 }
@@ -275,11 +287,12 @@ function initIdleTimer() {
     }, 1000);
 
     // Reset idle timer on any interaction
-    document.addEventListener('mousemove', resetIdleTimer);
-    document.addEventListener('mousedown', resetIdleTimer);
-    document.addEventListener('touchstart', resetIdleTimer);
-    document.addEventListener('click', resetIdleTimer);
-    document.addEventListener('scroll', resetIdleTimer, true);
+    const passiveListener = { passive: true };
+    document.addEventListener('mousemove', resetIdleTimer, passiveListener);
+    document.addEventListener('mousedown', resetIdleTimer, passiveListener);
+    document.addEventListener('touchstart', resetIdleTimer, passiveListener);
+    document.addEventListener('click', resetIdleTimer, passiveListener);
+    document.addEventListener('scroll', resetIdleTimer, { passive: true, capture: true });
 }
 
 function resetIdleTimer() {
@@ -293,41 +306,6 @@ function returnToHome() {
         switchTab('home');
         history.replaceState({ page: 'home' }, "", '#home');
     }
-}
-
-// --- Optional: Visual Touch Feedback (Ripple effect) ---
-// Adds premium feel to generic clicks on the kiosk
-
-document.body.addEventListener('click', function (e) {
-    createRipple(e.clientX, e.clientY);
-});
-
-function createRipple(x, y) {
-    const ripple = document.createElement('div');
-    ripple.style.position = 'absolute';
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
-    ripple.style.width = '20px';
-    ripple.style.height = '20px';
-    ripple.style.background = 'rgba(102, 81, 44, 0.2)'; // Gold tint for light mode visibility
-    ripple.style.borderRadius = '50%';
-    ripple.style.transform = 'translate(-50%, -50%) scale(0)';
-    ripple.style.pointerEvents = 'none';
-    ripple.style.transition = 'transform 0.5s ease-out, opacity 0.5s ease-out';
-    ripple.style.zIndex = 9999;
-
-    document.body.appendChild(ripple);
-
-    // Trigger animation
-    requestAnimationFrame(() => {
-        ripple.style.transform = 'translate(-50%, -50%) scale(10)';
-        ripple.style.opacity = '0';
-    });
-
-    // Cleanup
-    setTimeout(() => {
-        ripple.remove();
-    }, 500);
 }
 
 // --- Universal Modal System ---
