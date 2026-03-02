@@ -25,7 +25,7 @@
                 <span class="logo-icon"><span class="iconify" data-icon="mdi:university" data-width="28"></span></span>
                 <h1 class="logo-text">INDUS KIOSK</h1>
             </div>
-            <div>
+            <div class="mobile-header-actions">
                 <button class="mobile-back-btn" id="mobile-back-btn" onclick="navigateBack()">
                     <span class="iconify" data-icon="solar:arrow-left-line-duotone"></span>
                 </button>
@@ -477,10 +477,27 @@
 
         </main>
 
+        <!-- Universal Info Modal -->
+        <div class="modal-overlay" id="info-modal">
+            <div class="modal-content">
+                <button class="btn-close" onclick="closeModal()">
+                    <span class="iconify" data-icon="solar:close-circle-bold-duotone"></span>
+                </button>
+                <h2 id="modal-title">Modal Title</h2>
+                <div id="modal-body" class="modal-body-text">
+                    Modal content goes here...
+                </div>
+                <div class="modal-actions">
+                    <button class="btn-outline" onclick="closeModal()" style="width: auto;">Close</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Interactive Touch Ripple Canvas (Optional Polish) -->
         <canvas id="touch-ripple"></canvas>
     </div>
 
     <script src="script.js"></script>
 </body>
+
 </html>
