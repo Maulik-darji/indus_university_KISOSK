@@ -6,9 +6,9 @@
 
 :root {
     /* Brand Colors extracted from research */
-    --brand-gold: #0039a2;
+    --brand-gold: #b6b6b5;
     /* Primary Blue */
-    --brand-gold-light: #ddd5c1;
+    --brand-gold-light: #b6b6b5;
     /* Secondary Tan */
     --brand-gold-dark: #000000;
     /* Black for deep contrast */
@@ -20,13 +20,13 @@
     /* UI Colors for Premium Light Theme */
     --bg-light: #f4f4f4;
     /* Light gray base */
-    --surface-1: #ffffff;
+    --surface-1: #f4f4f4;
     /* Pure white cards */
-    --surface-2: #f4f4f4;
+    --surface-2: #ffffff;
     /* Match bg-light for contrast elements */
     --surface-glass: rgba(255, 255, 255, 0.85);
     /* Light glass */
-    --surface-glass-light: rgba(0, 57, 162, 0.05);
+    --surface-glass-light: rgba(219, 219, 218, 0.05);
     /* subtle blue tint on hover */
 
     /* Text */
@@ -34,20 +34,20 @@
     /* Pure Black */
     --text-secondary: #52525b;
     /* Medium gray */
-    --text-muted: #a1a1aa;
+    --text-muted: #866d56;
     /* Light gray */
 
-    /* Accents & Gradients */
-    --accent-glow: rgba(0, 57, 162, 0.15);
+    /* Accents & Gradients Removed */
+    --accent-glow: rgba(219, 219, 218, 0.15);
     /* Blue shadow/glow */
-    --gold-gradient: linear-gradient(135deg, #ff4622, #0039a2);
-    /* Orange to Blue */
+    --gold-gradient: var(--brand-primary);
+    /* Flat Blue */
 
     /* Metrics for Kiosk */
     --sidebar-width: 320px;
-    --border-radius-lg: 24px;
-    --border-radius-md: 16px;
-    --border-radius-sm: 8px;
+    --border-radius-lg: 8px;
+    --border-radius-md: 6px;
+    --border-radius-sm: 4px;
 
     /* Transitions */
     --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -99,8 +99,7 @@ body {
     height: 100%;
     display: flex;
     position: relative;
-    background: radial-gradient(circle at 100% 0%, rgba(0, 57, 162, 0.15) 0%, transparent 40%),
-        radial-gradient(circle at 0% 100%, rgba(255, 70, 34, 0.05) 0%, transparent 40%);
+    background: var(--bg-light);
 }
 
 /* --- Sidebar Navigation --- */
@@ -130,10 +129,10 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(102, 81, 44, 0.1);
+    background: rgba(219, 219, 218, 0.1);
     padding: 12px;
     border-radius: var(--border-radius-md);
-    border: 1px solid rgba(102, 81, 44, 0.2);
+    border: 1px solid rgba(219, 219, 218, 0.2);
 }
 
 .logo-text {
@@ -141,10 +140,20 @@ body {
     font-weight: 700;
     line-height: 1.1;
     letter-spacing: 1px;
-    background: var(--gold-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #796858;
+}
+
+.logo-text-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.sidebar-tagline {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
 }
 
 .nav-links {
@@ -181,13 +190,13 @@ body {
 }
 
 .nav-item.active {
-    background: var(--gold-gradient);
-    color: white;
+    background: var(--brand-primary) !important;
+    color: var(--text-primary) !important;
     box-shadow: 0 8px 24px var(--accent-glow);
 }
 
 .nav-item.active .iconify {
-    color: white;
+    color: var(--text-primary) !important;
 }
 
 /* Suble animation for active nav item */
@@ -198,7 +207,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    background: rgba(255, 255, 255, 0.4);
     transform: translateX(-100%);
     transition: 0.5s;
 }
@@ -273,10 +282,7 @@ body {
 /* Typography & Headers */
 
 .gradient-text {
-    background: var(--gold-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #796858;
 }
 
 .hero-header {
@@ -357,8 +363,7 @@ body {
 }
 
 .action-card:hover .card-icon {
-    background: var(--brand-gold);
-    color: white;
+    background: transparent;
     transform: scale(1.1);
 }
 
@@ -381,8 +386,8 @@ body {
 
 /* Highlighted Action (Admissions) */
 .action-highlight {
-    background: linear-gradient(to bottom right, var(--surface-1), #FFFBF0);
-    border-color: rgba(102, 81, 44, 0.2);
+    background: var(--surface-1);
+    border-color: rgba(219, 219, 218, 0.2);
 }
 
 .action-highlight .card-icon {
@@ -391,15 +396,7 @@ body {
 }
 
 .action-highlight .card-glow {
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    background: var(--brand-gold);
-    filter: blur(80px);
-    opacity: 0.3;
-    bottom: -50px;
-    right: -50px;
-    pointer-events: none;
+    display: none;
 }
 
 /* News Ticker */
@@ -417,7 +414,7 @@ body {
 }
 
 .ticker-label {
-    background: var(--brand-gold);
+    background: var(--brand-accent);
     color: white;
     padding: 0.3rem 0.8rem;
     border-radius: 4px;
@@ -471,19 +468,19 @@ body {
 }
 
 .bg-tech {
-    background-image: linear-gradient(45deg, #e0e0e0, #f0f0f0);
+    background-color: var(--brand-light);
 }
 
 .bg-management {
-    background-image: linear-gradient(45deg, #e5e5e5, #f5f5f5);
+    background-color: var(--brand-light);
 }
 
 .bg-design {
-    background-image: linear-gradient(45deg, #eaeaea, #fafafa);
+    background-color: var(--brand-light);
 }
 
 .bg-science {
-    background-image: linear-gradient(45deg, #dfdfdf, #efefef);
+    background-color: var(--brand-light);
 }
 
 .card-body {
@@ -521,9 +518,8 @@ body {
 }
 
 .info-card:hover .btn-outline {
-    background: var(--brand-gold);
-    color: white;
-    box-shadow: 0 4px 15px rgba(102, 81, 44, 0.2);
+    background: transparent;
+    color: var(--brand-gold-dark);
 }
 
 .btn-outline:active {
@@ -553,16 +549,15 @@ body {
 .list-item:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
     transform: translateY(-2px);
-    border-color: rgba(102, 81, 44, 0.2);
+    border-color: rgba(219, 219, 218, 0.2);
 }
 
 .list-item:hover .item-icon {
-    background: var(--brand-gold);
-    color: white;
+    background: transparent;
 }
 
 .list-item:hover .arrow {
-    color: var(--brand-gold);
+    color: var(--brand-accent);
     transform: translateX(5px);
 }
 
@@ -644,7 +639,7 @@ body {
 }
 
 .btn-pill {
-    background: rgba(102, 81, 44, 0.05);
+    background: rgba(219, 219, 218, 0.05);
     border: none;
     color: var(--text-primary);
     padding: 0.8rem 1.5rem;
@@ -659,11 +654,11 @@ body {
 }
 
 .btn-pill:hover {
-    background: rgba(102, 81, 44, 0.1);
+    background: rgba(219, 219, 218, 0.1);
 }
 
 .btn-pill:active {
-    background: var(--brand-gold);
+    background: var(--brand-accent);
     color: white;
 }
 
@@ -682,11 +677,11 @@ body {
 .event-card:hover {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
     transform: translateY(-3px);
-    border-color: rgba(102, 81, 44, 0.2);
+    border-color: rgba(219, 219, 218, 0.2);
 }
 
 .event-card:hover .event-date {
-    background: var(--brand-gold);
+    background: var(--brand-accent);
     color: white;
 }
 
@@ -734,7 +729,7 @@ body {
 }
 
 .badge {
-    background: rgba(102, 81, 44, 0.08);
+    background: rgba(219, 219, 218, 0.08);
     /* Gold tint instead of white transparency */
     color: var(--brand-gold-dark);
     padding: 0.3rem 0.8rem;
@@ -744,7 +739,7 @@ body {
 }
 
 .badge.highlight {
-    background: var(--brand-gold);
+    background: var(--brand-accent);
     color: white;
 }
 
@@ -917,7 +912,7 @@ body {
     }
 
     .hamburger-btn:active {
-        background: rgba(102, 81, 44, 0.1);
+        background: rgba(219, 219, 218, 0.1);
     }
 
     /* Off-Canvas Sidebar */
