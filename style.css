@@ -4,6 +4,13 @@
     box-sizing:border-box;
     font-family:'Segoe UI', sans-serif;
 }
+/* Disable text selection everywhere */
+
+* {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none;     /* IE 10+ */
+    user-select: none;         /* Standard */
+}
 
 body{
     display:flex;
@@ -49,9 +56,9 @@ body{
 }
 
 .logo{
-    font-size:20px;
-    font-weight:600;
-    margin-bottom:30px;
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:5px;
 }
 .moto{
     font-size:14px;
@@ -230,6 +237,76 @@ body{
     .ticker{
         left:0;
     }
+}
+
+/* ================= ADMISSION PAGE ================= */
+
+.admission-header h1{
+    font-size:clamp(30px,4vw,48px);
+    margin-bottom:10px;
+}
+
+.admission-header p{
+    color:#9aa0a6;
+    margin-bottom:40px;
+}
+
+.admission-form{
+    background:white;
+    padding:40px;
+    border-radius:15px;
+    box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.form-grid{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.form-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.form-group label{
+    font-size:14px;
+    margin-bottom:8px;
+    font-weight:500;
+}
+
+.form-group input,
+.form-group select{
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:14px;
+    outline:none;
+    transition:0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus{
+    border-color:#6d5b4f;
+}
+
+.form-submit{
+    margin-top:30px;
+}
+
+.form-submit button{
+    padding:14px 25px;
+    background:#6d5b4f;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    transition:0.3s;
+}
+
+.form-submit button:hover{
+    background:#5a4a40;
 }
 
 

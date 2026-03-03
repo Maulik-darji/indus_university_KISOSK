@@ -13,7 +13,6 @@
         <div class="mobile-title">INDUS UNIVERSITY</div>
         <div class="hamburger" id="hamburger">&#9776;</div>
     </div>
-    
     <!-- SIDEBAR -->
     <div class="sidebar" id="sidebar">
         <div>
@@ -49,19 +48,19 @@
             </div>
 
             <div class="cards">
-                <div class="card">
+                <div class="card" data-page="programs">
                     <h3>Explore Programs</h3>
                     <p>Undergraduate, Postgraduate & Ph.D</p>
                 </div>
 
-                <div class="card">
+                <div class="card" data-page="institutes">
                     <h3>Our Institutes</h3>
                     <p>Discover our specialized schools</p>
                 </div>
 
                 <div class="card">
                     <h3>Facilities</h3>
-                    <p>Discover Facilities Provided by University.</p>    
+                    <p>Discover Facilities Provided by University.</p>
                 </div>
 
                 <div class="card">
@@ -69,7 +68,7 @@
                     <p>6000+ Students & Elite Placements</p>
                 </div>
 
-                <div class="card">
+                <div class="card" data-page="admission">
                     <h3>Admission 2026</h3>
                     <p>Tap here to apply and enroll</p>
                 </div>
@@ -77,7 +76,79 @@
         </div>
 
         <!-- OTHER PAGES -->
-         <!-- About Indus Page -->
+        <!-- admisison page -->
+        <div class="page" id="admission">
+
+            <div class="admission-header">
+                <h1>Admission Registration 2026</h1>
+                <p>Begin your journey at Indus University</p>
+            </div>
+
+            <form class="admission-form">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" placeholder="Enter your name as per marksheet" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email" placeholder="Enter your email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Mobile Number</label>
+                        <input type="tel" placeholder="Enter mobile number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date of Birth</label>
+                        <input type="date" required>
+                    </div>
+
+                    <div class="form-group">
+                    <label>Program Level *</label>
+                    <select id="programLevel" required>
+                        <option value="">Select Level</option>
+                        <option value="UG">UG</option>
+                        <option value="PG">PG</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="PhD">Ph.D</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Program *</label>
+                    <select id="programSelect" required>
+                        <option value="">Select Program</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Select Specialization *</label>
+                    <select id="specializationSelect" required>
+                        <option value="">Select Specialization</option>
+                    </select>
+                </div>
+
+                    <div class="form-group">
+                        <label>City</label>
+                        <input type="text" placeholder="Enter your city">
+                    </div>
+
+                </div>
+
+                <div class="form-submit">
+                    <button type="submit">Submit Application</button>
+                </div>
+
+            </form>
+
+        </div>
+
+        <!-- About Indus Page -->
         <div class="page" id="about">
 
             <div class="about-header">
@@ -114,7 +185,7 @@
             </div>
 
         </div>
-        
+
         <!-- Programs page -->
         <div class="page" id="programs">
 
@@ -261,7 +332,7 @@
         <div class="page" id="map"><h2>Campus Map</h2></div>
 
         <!-- Events Page -->
-         <div class="page" id="events">
+        <div class="page" id="events">
 
         <div class="events-header">
             <h1>Activities & Events</h1>
