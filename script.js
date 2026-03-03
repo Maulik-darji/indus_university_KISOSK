@@ -24,24 +24,37 @@ const pages = document.querySelectorAll(".page");
 menuItems.forEach(item=>{
     item.addEventListener("click", function(){
 
-        // Remove active class
         menuItems.forEach(i=>i.classList.remove("active"));
         pages.forEach(p=>p.classList.remove("active-page"));
 
-        // Add active
         this.classList.add("active");
         const pageId = this.getAttribute("data-page");
         document.getElementById(pageId).classList.add("active-page");
 
-        // Close sidebar on mobile
-        document.getElementById("sidebar").classList.remove("active");
+        // Close sidebar
+        sidebar.classList.remove("active");
+
+        // REMOVE overlay too
+        overlay.classList.remove("active");
     });
 });
 
 
 // HAMBURGER
-document.getElementById("hamburger")
-    .addEventListener("click", function(){
-        document.getElementById("sidebar")
-            .classList.toggle("active");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+const hamburger = document.getElementById("hamburger");
+
+// Open sidebar
+hamburger.addEventListener("click", function(){
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
 });
+
+// Close when clicking overlay
+overlay.addEventListener("click", function(){
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+});
+
+overlay.classList.remove("active");

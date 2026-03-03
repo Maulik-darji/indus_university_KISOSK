@@ -88,6 +88,36 @@ body{
     font-weight:600;
 }
 
+/* Overlay for mobile sidebar */
+
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+
+    background: rgba(26, 26, 26, 0.452);   /* Light frosted tint */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s ease;
+
+    z-index:998;
+}
+
+.overlay.active{
+    opacity:1;   /* NOT 100 */
+    visibility:visible;
+}
+
+/* Sidebar stays above overlay */
+.sidebar{
+    z-index:999;
+}
+
 /* MAIN */
 
 .main{
@@ -396,4 +426,95 @@ body{
 .arrow{
     font-size:28px;
     color:#6d5b4f;
+}
+
+/* ================= EVENTS PAGE ================= */
+
+.events-header h1{
+    font-size:clamp(30px,4vw,48px);
+    margin-bottom:10px;
+}
+
+.events-header p{
+    color:#9aa0a6;
+    margin-bottom:40px;
+}
+
+.events-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:30px;
+}
+
+.event-card{
+    display:flex;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.04);
+    overflow:hidden;
+    transition:0.3s ease;
+}
+
+.event-card:hover{
+    transform:translateY(-5px);
+}
+
+/* Left Date Section */
+.event-date{
+    background:#ffffff;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-width:90px;
+}
+
+.month{
+    font-size:14px;
+    color:#777;
+}
+
+.day{
+    font-size:32px;
+    font-weight:bold;
+}
+
+/* Right Info Section */
+.event-info{
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    background-color: #f4f4f4;
+}
+
+.event-info h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.event-info p{
+    color:#555;
+    margin-bottom:15px;
+}
+
+/* Tags */
+.event-type{
+    font-size:14px;
+    color:#333;
+}
+
+.badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:500;
+    width:fit-content;
+}
+
+.badge.tech{
+    background:#ff4d30;
+    color:white;
 }
