@@ -347,9 +347,51 @@ function Programs() {
             <p className={`text-xl font-bold ${selectedCategory.color.replace('border-', 'text-')} mt-2 text-right`}>Available specializations & programs</p>
           </div>
         </div>
-        </div>
       </div>
-   </div>
+
+      {/* Programs Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-h-[calc(100vh-420px)] overflow-y-auto pr-4 pt-4 custom-scrollbar">
+        {selectedCategory.programs
+          .filter(prog => prog.toLowerCase().includes(searchQuery.toLowerCase()))
+          .map((prog, idx) => (
+            <div 
+              key={idx}
+              className="bg-white p-10 rounded-[2.5rem] shadow-[0_15px_50px_-20px_rgba(0,0,0,0.05)] border border-slate-50 hover:shadow-2xl hover:border-blue-500/10 transition-all duration-500 group cursor-pointer relative overflow-hidden"
+            >
+              <div className="flex items-center relative z-10">
+                <div className={`w-14 h-14 rounded-2xl ${selectedCategory.lightBg} flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-500`}>
+                  <div className={`w-3 h-3 rounded-full ${selectedCategory.bgColor} animate-pulse`}></div>
+                </div>
+                <div>
+                  <div className="text-[10px] font-black text-slate-400 tracking-[0.2em] mb-1 uppercase">COURSE</div>
+                  <h4 className="text-xl font-black text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">{prog}</h4>
+                </div>
+              </div>
+              
+              <div className="mt-8 flex items-center text-[10px] font-black text-slate-400 tracking-widest group-hover:text-slate-900 transition-colors uppercase">
+                <span>Program Details</span>
+                <svg className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
+
+              {/* Decorative background element */}
+              <div className={`absolute -bottom-10 -right-10 w-32 h-32 ${selectedCategory.lightBg} rounded-full opacity-0 group-hover:opacity-40 transition-all duration-700 blur-2xl`}></div>
+            </div>
+          ))}
+
+        {selectedCategory.programs.filter(prog => prog.toLowerCase().includes(searchQuery.toLowerCase())).length === 0 && (
+          <div className="col-span-full py-40 text-center bg-white rounded-[3rem] border-2 border-dashed border-slate-100">
+            <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-8">
+              <svg className="w-12 h-12 text-slate-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <h3 className="text-3xl font-black text-slate-900 mb-2 mt-10">No matching programs</h3>
+            <p className="text-slate-400 font-bold">Try searching for another keyword</p>
+          </div>
+        )}
+      </div>
 
       {/* Footer Quote */}
       <p className="mt-24 text-center text-slate-300 text-sm font-black tracking-widest uppercase italic border-t border-slate-100 pt-12">"Where Practice Meets Theory"</p>
