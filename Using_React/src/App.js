@@ -20,7 +20,7 @@ function App() {
       case 'about':
         return <About />;
       case 'programs':
-        return <Programs />;
+        return <Programs setActivePage={setActivePage} />;
       case 'institutes':
         return <Institutes />;
       case 'events':
@@ -40,7 +40,7 @@ function App() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row h-screen overflow-hidden bg-brand-light">
+    <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden bg-brand-light">
       {/* Mobile Top Bar */}
       <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 md:hidden sticky top-0 z-50">
         <div className="font-bold text-gray-900 tracking-tight">INDUS UNIVERSITY</div>
@@ -59,8 +59,8 @@ function App() {
         setIsOpen={setIsSidebarOpen}
       />
 
-      <main className="flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24">
-        <div className="max-w-full mx-auto">
+      <main className="flex-1 h-full w-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24">
+        <div className="w-full max-w-full mx-auto">
           {renderPage()}
         </div>
       </main>

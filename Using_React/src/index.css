@@ -13,6 +13,10 @@
   body {
     @apply flex min-h-screen bg-[#f4f1ee] select-none;
   }
+
+  #root {
+    @apply w-full;
+  }
 }
 
 @layer utilities {

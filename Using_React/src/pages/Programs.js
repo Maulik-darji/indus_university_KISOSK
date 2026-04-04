@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Programs() {
+function Programs({ setActivePage }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProgram, setSelectedProgram] = useState(null);
   const [selectedDetailSection, setSelectedDetailSection] = useState('CURRICULUM & LEARNING');
@@ -366,7 +366,7 @@ function Programs() {
 
   if (!selectedCategory) {
     return (
-      <div className="fade-in pb-20 max-w-full mx-auto px-4 md:px-8">
+      <div className="w-full flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24 fade-in">
         {/* Admissions Header */}
         <div className="mb-16 text-center">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Academic Categories</h1>
@@ -422,8 +422,8 @@ function Programs() {
   }
 
   return (
-    <>
-      <div className="fade-in pb-20 max-w-full mx-auto px-4 md:px-8">
+    <div className="w-full">
+      <div className="w-full flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24 fade-in">
       {/* Detail Header with Back Button */}
       <div className="mb-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <button 
@@ -627,18 +627,21 @@ function Programs() {
               <p className="text-[9px] font-black text-slate-400 tracking-[0.2em] uppercase mb-1">Inquiry Support</p>
               <p className="text-base font-bold text-slate-900">+91 74054 13342</p>
             </div>
-
-            {programData[selectedProgram]?.[selectedDetailSection]?.showApply && (
-              <button className="px-8 py-3.5 bg-[#ff4d20] text-white text-[12px] font-black uppercase tracking-widest rounded-xl shadow-[0_10px_25px_rgba(255,77,32,0.3)] hover:scale-105 active:scale-95 transition-all">
-                Apply Now
-              </button>
-            )}
+            <button 
+              onClick={() => {
+                if(setActivePage) setActivePage('admission');
+              }}
+              className="px-8 py-3.5 bg-[#ff4d20] text-white text-[12px] font-black uppercase tracking-widest rounded-xl shadow-[0_10px_25px_rgba(255,77,32,0.3)] hover:scale-105 active:scale-95 transition-all"
+            >
+              Apply Now
+            </button>
           </div>
+
         </div>
       </div>
-    )}
-  </>
-);
+      )}
+    </div>
+  );
 }
 
 export default Programs;
