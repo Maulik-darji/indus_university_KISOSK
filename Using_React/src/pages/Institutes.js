@@ -21,17 +21,17 @@ function Institutes() {
         <p className="text-lg text-gray-500">Centers of Excellence at Indus University</p>
       </header>
 
-      <div className="space-y-4 max-h-[70vh] overflow-y-auto pr-4 custom-scrollbar">
+      <div className="space-y-4 py-2 max-h-[70vh] overflow-y-auto pr-4 custom-scrollbar">
         {institutes.map((inst, i) => (
           <div 
             key={i} 
-            className="group bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center cursor-pointer hover:bg-brand-brown hover:border-brand-brown hover:shadow-xl hover:shadow-brand-brown/10 hover:translate-x-2 transition-all duration-300"
+            className="group bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex justify-between items-center cursor-pointer hover:border-slate-200 hover:shadow-md hover:-translate-y-1 transition-all duration-300"
           >
             <div className="institute-text">
-              <h3 className="text-xl font-bold group-hover:text-white transition-colors mb-1">{inst.name}</h3>
-              <p className="text-gray-500 group-hover:text-white/80 transition-colors">{inst.desc}</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-1">{inst.name}</h3>
+              <p className="text-slate-500">{inst.desc}</p>
             </div>
-            <div className="text-3xl text-brand-brown group-hover:text-white transition-all transform group-hover:translate-x-1">
+            <div className="text-3xl text-brand-brown transition-all transform group-hover:translate-x-1">
               ›
             </div>
           </div>
