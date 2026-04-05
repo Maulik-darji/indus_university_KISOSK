@@ -16,7 +16,7 @@ function Clock() {
   });
 
   return (
-    <div className="bg-gray-100 p-5 rounded-xl text-center shadow-sm">
+    <div className="bg-gray-200 p-5 rounded-xl text-center shadow-sm">
       <div className="text-2xl font-semibold text-gray-800">{timeString}</div>
       <div className="text-gray-600 text-sm">{dateString}</div>
       <div className="text-gray-500 text-xs mt-1">Ahmedabad, Gujarat</div>

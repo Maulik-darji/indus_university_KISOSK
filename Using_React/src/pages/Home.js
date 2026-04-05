@@ -23,7 +23,7 @@ function Home({ setActivePage }) {
         {cards.map((card) => (
           <div 
             key={card.id}
-            className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-gray-100"
+            className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-gray-100 min-h-[160px] flex flex-col justify-center"
             onClick={() => {
               if (card.id === 'University') {
                 window.open('https://indusuni.ac.in/', '_blank');

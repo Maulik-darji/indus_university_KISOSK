@@ -24,7 +24,7 @@ function SalientFeatures() {
   return (
     <div className="fade-in pb-20">
       <header className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-bold text-[#6f5c4e] leading-tight mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-4">
           Salient Features
         </h1>
         <p className="text-lg text-gray-500">Discover what makes Indus University stand out</p>
@@ -36,7 +36,7 @@ function SalientFeatures() {
             key={index}
             className="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md transition-all border border-gray-100 flex flex-col justify-center"
           >
-            <h3 className="text-[#6f5c4e] font-bold text-lg mb-2 uppercase tracking-wide border-b border-gray-100 pb-2">
+            <h3 className="text-black font-bold text-lg mb-2 uppercase tracking-wide border-b border-gray-100 pb-2">
               {feature.title}
             </h3>
             <p className="text-gray-600 leading-relaxed font-medium">

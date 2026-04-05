@@ -130,7 +130,7 @@ function Placements() {
     <div className="fade-in pb-24 h-full overflow-y-auto pr-2">
       <header className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
         <div>
-          <h1 className="text-4xl md:text-5xl font-bold text-[#6f5c4e] leading-tight mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-4">
             Placements & Stats
           </h1>
           <p className="text-lg text-gray-500">Excellence in career opportunities and industry exposure</p>
@@ -146,7 +146,7 @@ function Placements() {
           <input
             type="text"
             placeholder="Search company..."
-            className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-all shadow-sm text-[#6f5c4e] placeholder-gray-400"
+            className="w-full bg-white border border-gray-200 rounded-2xl py-3 pl-12 pr-4 focus:outline-none focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-all shadow-sm text-black placeholder-gray-400"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -155,7 +155,7 @@ function Placements() {
 
       {/* Stats Section */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-[#6f5c4e] mb-8 border-l-4 border-brand-brown pl-4">Placement Offers (Lakhs per Year)</h2>
+        <h2 className="text-2xl font-bold text-black mb-8 border-l-4 border-brand-brown pl-4">Placement Offers (Lakhs per Year)</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
           {stats.map((stat, index) => (
             <div 
@@ -173,7 +173,7 @@ function Placements() {
       {/* Companies Section */}
       <section className="pb-20">
         <div className="flex items-baseline justify-between mb-8">
-          <h2 className="text-2xl font-bold text-[#6f5c4e] border-l-4 border-brand-brown pl-4">Placements in Campus</h2>
+          <h2 className="text-2xl font-bold text-black border-l-4 border-brand-brown pl-4">Placements in Campus</h2>
           {searchTerm && (
             <p className="text-sm text-gray-500 italic">
               Showing {filteredCompanies.length} result{filteredCompanies.length !== 1 ? 's' : ''}
