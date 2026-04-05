@@ -7,12 +7,13 @@ function Home({ setActivePage }) {
     { id: 'facilities', title: 'Facilities', desc: 'Discover Facilities Provided by University.' },
     { id: 'placements', title: 'Placements & Stats', desc: '6000+ Students & Elite Placements' },
     { id: 'admission', title: 'Admission 2026', desc: 'Tap here to apply and enroll' },
+    { id: 'University', title: 'Visit Site', desc:'Tap here to visit the official website'}
   ];
 
   return (
     <div className="fade-in">
       <header className="mb-10">
-        <h1 className="text-4xl md:text-6xl font-bold text-brand-brown leading-tight mb-4">
+        <h1 className="text-4xl md:text-6xl font-bold text-[#6f5c4e] leading-tight mb-4">
           Welcome to<br />Indus University
         </h1>
         <p className="text-lg text-gray-500">Where Practice Meets Theory</p>
@@ -23,7 +24,13 @@ function Home({ setActivePage }) {
           <div 
             key={card.id}
             className="group bg-white p-8 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all cursor-pointer border border-gray-100"
-            onClick={() => card.id !== 'facilities' && card.id !== 'placements' && setActivePage(card.id)}
+            onClick={() => {
+              if (card.id === 'University') {
+                window.open('https://indusuni.ac.in/', '_blank');
+              } else if (card.id !== 'facilities' && card.id !== 'placements') {
+                setActivePage(card.id);
+              }
+            }}
           >
             <h3 className="text-xl font-semibold mb-2 group-hover:text-brand-brown transition-colors">{card.title}</h3>
             <p className="text-gray-500">{card.desc}</p>

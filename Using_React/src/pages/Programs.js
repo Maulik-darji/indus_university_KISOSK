@@ -123,15 +123,9 @@ function Programs({ setActivePage }) {
       id: 'btech',
       label: 'B.Tech',
       badge: 'DEGREE',
-      status: 'ADMISSION OPEN',
       color: 'border-blue-500',
       bgColor: 'bg-blue-500',
       lightBg: 'bg-blue-50',
-      icon: (
-        <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
-        </svg>
-      ),
       programs: [
         'Information & Communication Technology (ICT)',
         'Civil Engineering',
@@ -154,15 +148,9 @@ function Programs({ setActivePage }) {
       id: 'btech-dtd',
       label: 'B.Tech (D to D)',
       badge: 'LATERAL',
-      status: 'OPEN',
       color: 'border-amber-700',
       bgColor: 'bg-amber-700',
       lightBg: 'bg-amber-50',
-      icon: (
-        <svg className="w-8 h-8 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
-      ),
       programs: [
         'Information & Communication Technology (ICT)',
         'Civil Engineering',
@@ -181,15 +169,9 @@ function Programs({ setActivePage }) {
       id: 'diploma',
       label: 'Diploma',
       badge: 'TECHNICAL',
-      status: 'NOW',
       color: 'border-orange-500',
       bgColor: 'bg-orange-500',
       lightBg: 'bg-orange-50',
-      icon: (
-        <svg className="w-8 h-8 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.040 12.02 12.02 0 00.3 9.342 12.01 12.01 0 002.398 3.7l6.404 6.404a1 1 0 001.414 0l6.404-6.404a12.01 12.01 0 002.398-3.7 12.02 12.02 0 00.3-9.342z" />
-        </svg>
-      ),
       programs: [
         'Information & Communication Technology (ICT)',
         'Civil Engineering',
@@ -204,15 +186,9 @@ function Programs({ setActivePage }) {
       id: 'mtech',
       label: 'M.Tech',
       badge: 'MASTERS',
-      status: 'NOW',
       color: 'border-red-600',
       bgColor: 'bg-red-600',
       lightBg: 'bg-red-50',
-      icon: (
-        <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
-      ),
       programs: [
         'CAD / CAM (Mechanical Engr.)',
         'Construction Project Management (Civil Engg.)',
@@ -228,15 +204,9 @@ function Programs({ setActivePage }) {
       id: 'bdes',
       label: 'B.Des',
       badge: 'DESIGN',
-      status: 'CREATIVE',
       color: 'border-yellow-500',
       bgColor: 'bg-yellow-500',
       lightBg: 'bg-yellow-50',
-      icon: (
-        <svg className="w-8 h-8 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-        </svg>
-      ),
       programs: [
         'Product Design',
         'Interior Design',
@@ -248,15 +218,9 @@ function Programs({ setActivePage }) {
       id: 'mdes',
       label: 'M.Des',
       badge: 'MASTERS',
-      status: 'NOW',
       color: 'border-teal-600',
       bgColor: 'bg-teal-600',
       lightBg: 'bg-teal-50',
-      icon: (
-        <svg className="w-8 h-8 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.828 2.828a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-        </svg>
-      ),
       programs: [
         'Fashion Design',
         'Interior Design',
@@ -267,15 +231,9 @@ function Programs({ setActivePage }) {
       id: 'bsc',
       label: 'B.Sc',
       badge: 'SCIENCE',
-      status: 'OPEN',
       color: 'border-blue-400',
       bgColor: 'bg-blue-400',
       lightBg: 'bg-blue-50',
-      icon: (
-        <svg className="w-8 h-8 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547" />
-        </svg>
-      ),
       programs: [
         'Data Science',
         'Computer Application (CA) & (IT)',
@@ -292,15 +250,9 @@ function Programs({ setActivePage }) {
       id: 'msc',
       label: 'M.Sc',
       badge: 'MASTERS',
-      status: 'NOW',
       color: 'border-indigo-600',
       bgColor: 'bg-indigo-600',
       lightBg: 'bg-indigo-50',
-      icon: (
-        <svg className="w-8 h-8 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13" />
-        </svg>
-      ),
       programs: [
         'Information Technology (IT)',
         'Clinical Research',
@@ -315,15 +267,9 @@ function Programs({ setActivePage }) {
       id: 'mba-avia',
       label: 'MBA/BBA',
       badge: 'BUSINESS',
-      status: 'ACTIVE',
       color: 'border-purple-600',
       bgColor: 'bg-purple-600',
       lightBg: 'bg-purple-50',
-      icon: (
-        <svg className="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
       programs: [
         'Aviation Management',
         'BBA',
@@ -336,30 +282,18 @@ function Programs({ setActivePage }) {
       id: 'bca',
       label: 'BCA',
       badge: 'COMPUTER',
-      status: 'OPEN',
       color: 'border-cyan-500',
       bgColor: 'bg-cyan-500',
       lightBg: 'bg-cyan-50',
-      icon: (
-        <svg className="w-8 h-8 text-cyan-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
       programs: ['BCA']
     },
     {
       id: 'mca',
       label: 'MCA',
       badge: 'POST-GRAD',
-      status: 'OPEN',
       color: 'border-rose-500',
       bgColor: 'bg-rose-500',
       lightBg: 'bg-rose-50',
-      icon: (
-        <svg className="w-8 h-8 text-rose-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      ),
       programs: ['MCA']
     }
   ];
@@ -380,20 +314,8 @@ function Programs({ setActivePage }) {
               onClick={() => setSelectedCategory(cat)}
               className={`bg-white rounded-[2.5rem] p-14 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.1)] border-t-8 ${cat.color} relative overflow-hidden group hover:shadow-2xl transition-all duration-500 cursor-pointer`}
             >
-              {/* Badge */}
-              <div className="absolute top-8 right-8">
-                <span className={`px-4 py-1.5 rounded-full text-[10px] font-black tracking-widest ${cat.lightBg} ${cat.color.replace('border-', 'text-')} opacity-90 uppercase border ${cat.color.replace('border-', 'border-')}/10`}>
-                  {cat.status}
-                </span>
-              </div>
-
-              {/* Icon */}
-              <div className={`w-20 h-20 ${cat.lightBg} rounded-[2rem] flex items-center justify-center mb-10 group-hover:scale-110 transition-transform duration-500 shadow-sm`}>
-                {cat.icon}
-              </div>
-
               {/* Metadata */}
-              <div className="text-[12px] font-black text-slate-400 tracking-[0.25em] mb-4 uppercase">
+              <div className="text-[12px] font-black text-slate-400 tracking-[0.25em] mb-4 uppercase mt-2">
                 {cat.badge} • PROGRAMS
               </div>
 
