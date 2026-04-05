@@ -84,17 +84,34 @@ function App() {
 
       <main className="flex-1 h-full w-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24">
         <div className="w-full max-w-full mx-auto h-full overflow-y-auto pb-20">
-          {activePage !== 'home' && (
-            <button 
-              onClick={() => setActivePage('home')}
-              className="mb-8 flex items-center gap-3 bg-white border border-gray-100 shadow-sm px-6 py-3 rounded-xl text-gray-700 hover:text-blue-600 font-bold text-xs md:text-sm tracking-wider uppercase hover:shadow-md hover:-translate-y-0.5 transition-all outline-none group"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-              </svg>
-              Back to Home
-            </button>
-          )}
+          <div className="grid grid-cols-3 items-center mb-4 gap-6 px-4 md:px-0">
+            <div className="flex justify-start">
+              {activePage !== 'home' && (
+                <button 
+                  onClick={() => setActivePage('home')}
+                  className="flex items-center gap-3 bg-white border border-gray-100 shadow-sm px-6 py-3 rounded-xl text-gray-700 hover:text-blue-600 font-bold text-xs md:text-sm tracking-wider uppercase hover:shadow-md hover:-translate-y-0.5 transition-all outline-none group w-fit h-fit"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                  Home
+                </button>
+              )}
+            </div>
+            
+            <div className="flex justify-center flex-1 min-w-0">
+              <h1 className="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight whitespace-nowrap overflow-hidden text-ellipsis">
+                {activePage === 'programs' && "Academic Categories"}
+                {activePage === 'about' && "About Indus"}
+                {activePage === 'institutes' && "Our Institutes"}
+                {activePage === 'events' && "University Events"}
+              </h1>
+            </div>
+
+            <div className="flex justify-end hidden md:flex">
+              {/* Spacer/Third column element if needed */}
+            </div>
+          </div>
           {renderPage()}
         </div>
       </main>

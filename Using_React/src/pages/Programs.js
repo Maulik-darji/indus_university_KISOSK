@@ -103,19 +103,14 @@ function Programs({ setActivePage }) {
 
   if (!selectedCategory) {
     return (
-      <div className="w-full flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24 fade-in">
-        {/* Admissions Header */}
-        <div className="mb-16 text-center">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 tracking-tight">Academic Categories</h1>
-        </div>
-
+      <div className="w-full flex-1 h-full overflow-hidden p-8 md:p-8 lg:p-10 pb-24 md:pb-24 fade-in">
         {/* Categories Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-h-[calc(100vh-250px)] overflow-y-auto px-10 pt-10 pb-20 -mx-10 custom-scrollbar">
           {categories.map((cat) => (
             <div 
               key={cat.id} 
               onClick={() => setSelectedCategory(cat)}
-              className={`bg-white rounded-[2.5rem] p-14 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.1)] border-t-8 ${cat.color} relative overflow-hidden group hover:shadow-2xl transition-all duration-500 cursor-pointer`}
+              className={`bg-white rounded-3xl p-14 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.1)] border-t-[24px] ${cat.color} relative overflow-hidden group hover:shadow-2xl transition-all duration-500 cursor-pointer`}
             >
               {/* Metadata */}
               <div className="text-[12px] font-black text-slate-400 tracking-[0.25em] mb-4 uppercase mt-2">
@@ -151,25 +146,25 @@ function Programs({ setActivePage }) {
       <div className="w-full">
         <div className="w-full flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24 fade-in">
       {/* Detail Header with Back Button */}
-      <div className="mb-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <button 
           onClick={() => {
             setSelectedCategory(null);
             setSelectedProgram(null);
           }}
-          className="flex items-center px-8 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:-translate-x-2 transition-all font-bold text-slate-600 group w-fit"
+          className="flex items-center px-6 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm hover:shadow-md hover:-translate-x-2 transition-all font-bold text-slate-600 group w-fit h-fit"
         >
           <svg className="w-5 h-5 mr-3 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          BACK TO CATEGORIES
+          BACK
         </button>
 
-        <div className="flex flex-col md:flex-row md:items-center gap-6">
+        <div className="flex flex-col md:flex-row md:items-center gap-4">
           {/* Search Bar */}
-          <div className="relative group min-w-[300px]">
-            <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-              <svg className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div className="relative group min-w-[240px]">
+            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
+              <svg className="w-4 h-4 text-slate-400 group-focus-within:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </div>
@@ -178,46 +173,38 @@ function Programs({ setActivePage }) {
               placeholder="Search programs..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none font-bold text-slate-700 transition-all placeholder:text-slate-300"
+              className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl shadow-sm focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none font-bold text-slate-700 transition-all placeholder:text-slate-300 text-sm"
             />
           </div>
 
           <div className="text-right">
-            <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">{selectedCategory.label} Courses</h1>
-            <p className={`text-xl font-bold ${selectedCategory.color.replace('border-', 'text-')} mt-2 text-right`}>Available specializations & programs</p>
+            <h1 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-none">{selectedCategory.label} Courses</h1>
+            <p className={`text-md font-bold ${selectedCategory.color.replace('border-', 'text-')} mt-1 text-right`}>Available Specializations</p>
           </div>
         </div>
       </div>
 
       {/* Programs Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-h-[calc(100vh-420px)] overflow-y-auto px-10 pt-10 pb-20 -mx-10 custom-scrollbar">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-h-[calc(100vh-420px)] overflow-y-auto px-10 pt-10 pb-20 -mx-10 custom-scrollbar">
         {selectedCategory.programs
           .filter(prog => prog.toLowerCase().includes(searchQuery.toLowerCase()))
           .map((prog, idx) => (
             <div 
               key={idx}
               onClick={() => setSelectedProgram(prog)}
-              className="bg-white p-10 rounded-[2.5rem] shadow-[0_15px_50px_-20px_rgba(0,0,0,0.05)] border border-slate-50 hover:shadow-2xl hover:border-blue-500/10 transition-all duration-500 group cursor-pointer relative overflow-hidden"
+              className="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl hover:border-blue-500/20 transition-all duration-500 group cursor-pointer relative overflow-hidden flex flex-col justify-between h-full"
             >
-              <div className="flex items-center relative z-10">
-                <div className={`w-14 h-14 rounded-2xl ${selectedCategory.lightBg} flex items-center justify-center mr-6 group-hover:scale-110 transition-transform duration-500`}>
-                  <div className={`w-3 h-3 rounded-full ${selectedCategory.bgColor} animate-pulse`}></div>
-                </div>
-                <div>
-                  <div className="text-[10px] font-black text-slate-400 tracking-[0.2em] mb-1 uppercase">COURSE</div>
-                  <h4 className="text-xl font-black text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">{prog}</h4>
-                </div>
+              <div className="relative z-10">
+                <div className="text-[10px] font-black text-slate-300 tracking-[0.2em] mb-2 uppercase">COURSE</div>
+                <h4 className="text-xl font-black text-slate-800 leading-tight group-hover:text-blue-600 transition-colors">{prog}</h4>
               </div>
               
-              <div className="mt-8 flex items-center text-[10px] font-black text-slate-400 tracking-widest group-hover:text-slate-900 transition-colors uppercase">
+              <div className="mt-8 flex items-center text-[10px] font-black text-slate-400 tracking-widest group-hover:text-slate-900 transition-colors uppercase pt-6 border-t border-slate-50">
                 <span>Program Details</span>
                 <svg className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </div>
-
-              {/* Decorative background element */}
-              <div className={`absolute -bottom-10 -right-10 w-32 h-32 ${selectedCategory.lightBg} rounded-full opacity-0 group-hover:opacity-40 transition-all duration-700 blur-2xl`}></div>
             </div>
           ))}
 
@@ -276,7 +263,7 @@ function Programs({ setActivePage }) {
 
           {/* Main Content Area - Grid of Detail Squares */}
           <div className="flex-1 overflow-y-auto custom-scrollbar px-10 pb-10">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 pb-4">
+            <div className="grid grid-cols-4 gap-4 pt-8 pb-4">
               {[
                 { title: 'CURRICULUM & LEARNING', color: 'bg-[#ffae4f]', id: 'CURRICULUM & LEARNING' },
                 { title: 'INDUSTRY EXPOSURE', color: 'bg-[#c9d09e]', id: 'INDUSTRY EXPOSURE' },
@@ -290,14 +277,14 @@ function Programs({ setActivePage }) {
                   key={i}
                   onClick={() => handleDetailClick(item.id)}
                   className={`
-                    relative aspect-video p-3 flex flex-col items-center justify-center text-center
+                    relative h-28 p-4 flex flex-col items-center justify-center text-center
                     rounded-2xl cursor-pointer transition-all duration-300 group
                     hover:scale-[1.02] hover:-translate-y-1
                     ${item.color} 
                     ${selectedDetailSection === item.id ? 'shadow-lg scale-[1.03] -translate-y-1 z-10 border-2 border-white' : 'shadow-sm hover:shadow-md hover:z-10'}
                   `}
                 >
-                  <h3 className="text-[13px] font-bold text-slate-900 leading-tight">
+                  <h3 className="text-[15px] font-bold text-slate-900 leading-tight">
                     {item.title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}
                   </h3>
                 </div>
