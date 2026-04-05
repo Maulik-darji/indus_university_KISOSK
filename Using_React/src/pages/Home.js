@@ -4,7 +4,7 @@ function Home({ setActivePage }) {
   const cards = [
     { id: 'programs', title: 'Explore Programs', desc: 'Undergraduate, Postgraduate & Ph.D' },
     { id: 'institutes', title: 'Our Institutes', desc: 'Discover our specialized schools' },
-    { id: 'facilities', title: 'Facilities', desc: 'Discover Facilities Provided by University.' },
+    { id: 'facilities', title: 'Facilities', desc: 'Discover Salient Features of Indus University.' },
     { id: 'placements', title: 'Placements & Stats', desc: '6000+ Students & Elite Placements' },
     { id: 'admission', title: 'Admission 2026', desc: 'Tap here to apply and enroll' },
     { id: 'University', title: 'Visit Site', desc:'Tap here to visit the official website'}
@@ -27,7 +27,7 @@ function Home({ setActivePage }) {
             onClick={() => {
               if (card.id === 'University') {
                 window.open('https://indusuni.ac.in/', '_blank');
-              } else if (card.id !== 'facilities' && card.id !== 'placements') {
+              } else {
                 setActivePage(card.id);
               }
             }}

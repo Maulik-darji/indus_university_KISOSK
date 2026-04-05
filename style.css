@@ -595,3 +595,169 @@ body{
     background:#ff4d30;
     color:white;
 }
+
+/* ================= SALIENT FEATURES PAGE ================= */
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 20px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 15px;
+}
+
+.feature-item {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+    border: 1px solid #eee;
+    transition: 0.3s;
+}
+
+.feature-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.feature-item h4 {
+    color: #6d5b4f;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #f4f1ee;
+    padding-bottom: 10px;
+}
+
+.feature-item p {
+    color: #555;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* ================= BACK BUTTON (Premium Pill Style) ================= */
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: white;
+    border: 1px solid rgba(0,0,0,0.05);
+    color: #4a5568;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-bottom: 25px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    width: fit-content;
+}
+
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    background-color: #fcfcfc;
+}
+
+.back-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 3;
+}
+
+/* ================= PLACEMENTS & STATS PAGE ================= */
+
+.section-title {
+    font-size: 24px;
+    color: #6d5b4f;
+    margin: 40px 0 25px 0;
+    border-left: 5px solid #6d5b4f;
+    padding-left: 15px;
+}
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    padding: 40px 20px;
+    border-radius: 40px;
+    color: white;
+    text-align: center;
+    font-weight: 800;
+    font-size: 36px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.stat-card:hover {
+    /* Hover scale disabled as per user request */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.stat-card span {
+    font-size: 11px;
+    text-transform: uppercase;
+    margin-top: 8px;
+    display: block;
+    line-height: 1.2;
+    font-weight: 900;
+    opacity: 0.9;
+}
+
+.stat-card.bg-red { background: #ee4036; }
+.stat-card.bg-teal { background: #3cb5a0; }
+.stat-card.bg-orange { background: #f7941d; }
+.stat-card.bg-yellow { background: #f7b11d; }
+.stat-card.bg-indigo { background: #4238ca; }
+.stat-card.bg-red-dark { background: #cf1d1d; }
+.stat-card.bg-pink { background: #e84496; }
+.stat-card.text-dark { color: #ffffff; }
+
+.companies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    max-height: 50vh;
+    overflow-y: auto;
+    padding-right: 15px;
+    margin-bottom: 50px;
+}
+
+.company-tag {
+    background: white;
+    padding: 18px 10px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #4b5563;
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    font-style: italic;
+}
+
+.company-tag:hover {
+    border-color: #6d5b4f;
+    color: #6d5b4f;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}

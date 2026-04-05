@@ -307,7 +307,7 @@ function Programs({ setActivePage }) {
         </div>
 
         {/* Categories Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-h-[calc(100vh-250px)] overflow-y-auto pr-4 pt-8 custom-scrollbar">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-h-[calc(100vh-250px)] overflow-y-auto px-10 pt-10 pb-20 -mx-10 custom-scrollbar">
           {categories.map((cat) => (
             <div 
               key={cat.id} 
@@ -386,7 +386,7 @@ function Programs({ setActivePage }) {
       </div>
 
       {/* Programs Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-h-[calc(100vh-420px)] overflow-y-auto pr-4 pt-4 custom-scrollbar">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-h-[calc(100vh-420px)] overflow-y-auto px-10 pt-10 pb-20 -mx-10 custom-scrollbar">
         {selectedCategory.programs
           .filter(prog => prog.toLowerCase().includes(searchQuery.toLowerCase()))
           .map((prog, idx) => (
