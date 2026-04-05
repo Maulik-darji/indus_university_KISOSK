@@ -1,5 +1,78 @@
 import React, { useState } from 'react';
 
+
+// Common B.Tech Eligibility
+const commonBtechEligibility = {
+  sections: [
+    { title: 'Eligibility Criteria', items: ['10 + 2 SCIENCE WITH MIN 45% IN PCM OR EQUIVALENT FROM A RECOGNIZED BOARD'] },
+    { title: 'Program Duration', items: ['4 Years (8 Semesters)'] }
+  ],
+  showApply: true
+};
+
+const commonBtechFees = {
+  sections: [
+    { title: 'Academic Fees Structure', items: ['Total 1st Semester Fees: ₹60,220'] }
+  ]
+};
+
+const defaultProgramData = {
+  'Information & Communication Technology (ICT)': {
+    'CURRICULUM & LEARNING': {
+      sections: [
+        { title: 'Core Technical Areas', items: ['Data management', 'Networking and protocols', 'Software development', 'Programming languages'] },
+        { title: 'Advanced / Emerging Areas', items: ['Artificial Intelligence', 'Cybersecurity', 'Blockchain', 'Internet of Things'] }
+      ]
+    },
+    'INDUSTRY EXPOSURE': {
+      sections: [{ title: 'Industry Exposure & Practical Learning', items: ['Hands-on laboratory sessions', 'Industry visits', 'Technical workshops', 'Project-based learning'] }]
+    },
+    'CAREER PROSPECTS': {
+      sections: [
+        { title: 'Job Roles', items: ['Digital Technology Engineer', 'Network Planning Engineer', 'Cybersecurity Analyst', 'Service Engineer', 'Robotics Engineer'] },
+        { title: 'Career Sectors', items: ['IT services', 'Telecommunications', 'Software development', 'Healthcare IT'] }
+      ]
+    },
+    'WHY CHOOSE US': {
+      sections: [{ title: 'Why Choose This Program at Indus University', items: ['Industry-oriented curriculum', 'Practical learning environment', 'Exposure to emerging ICT technologies', 'Holistic technical development'] }]
+    },
+    'ELIGIBILITY': commonBtechEligibility,
+    'FEES STRUCTURE': commonBtechFees,
+    'ADMISSION': {
+      sections: [{ title: 'Admission Process', items: ['Admissions are conducted as per guidelines...', 'A portion of seats is filled through centralized merit-based admission...'] }],
+      showApply: true
+    }
+  },
+  'Civil Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Automobile Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Mechanical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Metallurgical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Electrical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Electronics & Communication Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Computer Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Cyber Security': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Information Technology': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Computer Science Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Aircraft Maintenance Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Aeronautical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  'Defence Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees }
+};
+
+const defaultCategories = [
+  { id: 'btech', label: 'B.Tech', badge: 'DEGREE', color: 'border-blue-500', bgColor: 'bg-blue-500', lightBg: 'bg-blue-50', programs: ['Information & Communication Technology (ICT)', 'Civil Engineering', 'Automobile Engineering', 'Mechanical Engineering', 'Metallurgical Engineering', 'Electrical Engineering', 'Electronics & Communication Engineering', 'Computer Engineering', 'Cyber Security', 'Information Technology', 'Computer Science Engineering', 'Aircraft Maintenance Engineering', 'Aeronautical Engineering', 'Aerospace Engineering', 'Defence Aerospace Engineering'] },
+  { id: 'btech-dtd', label: 'B.Tech (D to D)', badge: 'LATERAL', color: 'border-amber-700', bgColor: 'bg-amber-700', lightBg: 'bg-amber-50', programs: ['Information & Communication Technology (ICT)', 'Civil Engineering', 'Automobile Engineering', 'Mechanical Engineering', 'Metallurgical Engineering', 'Electrical Engineering', 'Electronics & Communication Engineering', 'Computer Engineering', 'Cyber Security', 'Information Technology', 'Computer Science Engineering'] },
+  { id: 'diploma', label: 'Diploma', badge: 'TECHNICAL', color: 'border-orange-500', bgColor: 'bg-orange-500', lightBg: 'bg-orange-50', programs: ['Information & Communication Technology (ICT)', 'Civil Engineering', 'Automobile Engineering', 'Mechanical Engineering', 'Computer Engineering', 'Electrical Engineering', 'Electronics & Communication Engineering'] },
+  { id: 'mtech', label: 'M.Tech', badge: 'MASTERS', color: 'border-red-600', bgColor: 'bg-red-600', lightBg: 'bg-red-50', programs: ['CAD / CAM (Mechanical Engr.)', 'Construction Project Management (Civil Engg.)', 'Digital Communication (EC Engg.)', 'Electrical Power System', 'Industrial Metallurgy', 'Structural Engineering (Civil Engg.)', 'Data Science (Computer)', 'Cyber Security'] },
+  { id: 'bdes', label: 'B.Des', badge: 'DESIGN', color: 'border-yellow-500', bgColor: 'bg-yellow-500', lightBg: 'bg-yellow-50', programs: ['Product Design', 'Interior Design', 'Fashion Design', 'Communication Design - (Graphic Design)'] },
+  { id: 'mdes', label: 'M.Des', badge: 'MASTERS', color: 'border-teal-600', bgColor: 'bg-teal-600', lightBg: 'bg-teal-50', programs: ['Fashion Design', 'Interior Design', 'UI-UX Design'] },
+  { id: 'bsc', label: 'B.Sc', badge: 'SCIENCE', color: 'border-blue-400', bgColor: 'bg-blue-400', lightBg: 'bg-blue-50', programs: ['Data Science', 'Computer Application (CA) & (IT)', 'Clinical Research (Hons)', 'Mathematics (Hons)', 'Physics (Hons)', 'Chemistry (Hons)', 'Cyber Security (Hons)', 'Microbiology (Hons)', 'Computer Science (AI & ML)'] },
+  { id: 'msc', label: 'M.Sc', badge: 'MASTERS', color: 'border-indigo-600', bgColor: 'bg-indigo-600', lightBg: 'bg-indigo-50', programs: ['Information Technology (IT)', 'Clinical Research', 'Mathematics', 'Physics', 'Chemistry', 'Cyber Security', 'Microbiology'] },
+  { id: 'mba-avia', label: 'MBA/BBA', badge: 'BUSINESS', color: 'border-purple-600', bgColor: 'bg-purple-600', lightBg: 'bg-purple-50', programs: ['Aviation Management', 'BBA', 'Marketing', 'Finance', 'Human Resource'] },
+  { id: 'bca', label: 'BCA', badge: 'COMPUTER', color: 'border-cyan-500', bgColor: 'bg-cyan-500', lightBg: 'bg-cyan-50', programs: ['BCA'] },
+  { id: 'mca', label: 'MCA', badge: 'POST-GRAD', color: 'border-rose-500', bgColor: 'bg-rose-500', lightBg: 'bg-rose-50', programs: ['MCA'] }
+];
+
 function Programs({ setActivePage }) {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedProgram, setSelectedProgram] = useState(null);
@@ -7,296 +80,26 @@ function Programs({ setActivePage }) {
   const [searchQuery, setSearchQuery] = useState('');
   const detailContentRef = React.useRef(null);
 
+  const [categories, setCategories] = useState(() => {
+    const saved = localStorage.getItem('indus_categories');
+    return saved ? JSON.parse(saved) : defaultCategories;
+  });
+
+  const [programData, setProgramData] = useState(() => {
+    const saved = localStorage.getItem('indus_programData');
+    return saved ? JSON.parse(saved) : defaultProgramData;
+  });
+
+  const [inquiryNumber, setInquiryNumber] = useState(() => {
+    return localStorage.getItem('indus_inquiry_number') || '+91 74054 13342';
+  });
+
   const handleDetailClick = (id) => {
     setSelectedDetailSection(id);
-    // Add a slight delay to ensure the content area is focused correctly
     setTimeout(() => {
       detailContentRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
   };
-
-  // Common B.Tech Eligibility (applied to all B.Tech except D2D)
-  const commonBtechEligibility = {
-    sections: [
-      {
-        title: 'Eligibility Criteria',
-        items: ['10 + 2 SCIENCE WITH MIN 45% IN PCM OR EQUIVALENT FROM A RECOGNIZED BOARD']
-      },
-      {
-        title: 'Program Duration',
-        items: ['4 Years (8 Semesters)']
-      }
-    ],
-    showApply: true
-  };
-
-  const commonBtechFees = {
-    sections: [
-      {
-        title: 'Academic Fees Structure',
-        items: ['Total 1st Semester Fees: ₹60,220']
-      }
-    ]
-  };
-
-  const programData = {
-    'Information & Communication Technology (ICT)': {
-      'CURRICULUM & LEARNING': {
-        sections: [
-          {
-            title: 'Core Technical Areas',
-            items: ['Data management', 'Networking and protocols', 'Software development', 'Programming languages']
-          },
-          {
-            title: 'Advanced / Emerging Areas',
-            items: ['Artificial Intelligence', 'Cybersecurity', 'Blockchain', 'Internet of Things']
-          }
-        ]
-      },
-      'INDUSTRY EXPOSURE': {
-        sections: [
-          {
-            title: 'Indus try Exposure & Practical Learning',
-            items: ['Hands-on laboratory sessions', 'Industry visits', 'Technical workshops', 'Project-based learning']
-          }
-        ]
-      },
-      'CAREER PROSPECTS': {
-        sections: [
-          {
-            title: 'Job Roles',
-            items: ['Digital Technology Engineer', 'Network Planning Engineer', 'Cybersecurity Analyst', 'Service Engineer', 'Robotics Engineer']
-          },
-          {
-            title: 'Career Sectors',
-            items: ['IT services', 'Telecommunications', 'Software development', 'Healthcare IT']
-          }
-        ]
-      },
-      'WHY CHOOSE US': {
-        sections: [
-          {
-            title: 'Why Choose This Program at Indus University',
-            items: [
-              'Industry-oriented curriculum',
-              'Practical learning environment',
-              'Exposure to emerging ICT technologies',
-              'Holistic technical development'
-            ]
-          }
-        ]
-      },
-      'ELIGIBILITY': commonBtechEligibility,
-      'FEES STRUCTURE': commonBtechFees,
-      'ADMISSION': {
-        sections: [
-          {
-            title: 'Admission Process',
-            items: [
-              'Admissions are conducted as per guidelines of the Admission Committee for Professional Courses (ACPC) and university norms.',
-              'A portion of seats is filled through centralized merit-based admission, while remaining seats are filled under Management Quota as per applicable regulations.'
-            ]
-          }
-        ],
-        showApply: true
-      }
-    },
-    // Applying common B.Tech eligibility to other engineering programs
-    'Civil Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Automobile Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Mechanical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Metallurgical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Electrical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Electronics & Communication Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Computer Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Cyber Security': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Information Technology': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Computer Science Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Aircraft Maintenance Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Aeronautical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-    'Defence Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees }
-  };
-
-  const categories = [
-    {
-      id: 'btech',
-      label: 'B.Tech',
-      badge: 'DEGREE',
-      color: 'border-blue-500',
-      bgColor: 'bg-blue-500',
-      lightBg: 'bg-blue-50',
-      programs: [
-        'Information & Communication Technology (ICT)',
-        'Civil Engineering',
-        'Automobile Engineering',
-        'Mechanical Engineering',
-        'Metallurgical Engineering',
-        'Electrical Engineering',
-        'Electronics & Communication Engineering',
-        'Computer Engineering',
-        'Cyber Security',
-        'Information Technology',
-        'Computer Science Engineering',
-        'Aircraft Maintenance Engineering',
-        'Aeronautical Engineering',
-        'Aerospace Engineering',
-        'Defence Aerospace Engineering'
-      ]
-    },
-    {
-      id: 'btech-dtd',
-      label: 'B.Tech (D to D)',
-      badge: 'LATERAL',
-      color: 'border-amber-700',
-      bgColor: 'bg-amber-700',
-      lightBg: 'bg-amber-50',
-      programs: [
-        'Information & Communication Technology (ICT)',
-        'Civil Engineering',
-        'Automobile Engineering',
-        'Mechanical Engineering',
-        'Metallurgical Engineering',
-        'Electrical Engineering',
-        'Electronics & Communication Engineering',
-        'Computer Engineering',
-        'Cyber Security',
-        'Information Technology',
-        'Computer Science Engineering'
-      ]
-    },
-    {
-      id: 'diploma',
-      label: 'Diploma',
-      badge: 'TECHNICAL',
-      color: 'border-orange-500',
-      bgColor: 'bg-orange-500',
-      lightBg: 'bg-orange-50',
-      programs: [
-        'Information & Communication Technology (ICT)',
-        'Civil Engineering',
-        'Automobile Engineering',
-        'Mechanical Engineering',
-        'Computer Engineering',
-        'Electrical Engineering',
-        'Electronics & Communication Engineering'
-      ]
-    },
-    {
-      id: 'mtech',
-      label: 'M.Tech',
-      badge: 'MASTERS',
-      color: 'border-red-600',
-      bgColor: 'bg-red-600',
-      lightBg: 'bg-red-50',
-      programs: [
-        'CAD / CAM (Mechanical Engr.)',
-        'Construction Project Management (Civil Engg.)',
-        'Digital Communication (EC Engg.)',
-        'Electrical Power System',
-        'Industrial Metallurgy',
-        'Structural Engineering (Civil Engg.)',
-        'Data Science (Computer)',
-        'Cyber Security'
-      ]
-    },
-    {
-      id: 'bdes',
-      label: 'B.Des',
-      badge: 'DESIGN',
-      color: 'border-yellow-500',
-      bgColor: 'bg-yellow-500',
-      lightBg: 'bg-yellow-50',
-      programs: [
-        'Product Design',
-        'Interior Design',
-        'Fashion Design',
-        'Communication Design - (Graphic Design)'
-      ]
-    },
-    {
-      id: 'mdes',
-      label: 'M.Des',
-      badge: 'MASTERS',
-      color: 'border-teal-600',
-      bgColor: 'bg-teal-600',
-      lightBg: 'bg-teal-50',
-      programs: [
-        'Fashion Design',
-        'Interior Design',
-        'UI-UX Design'
-      ]
-    },
-    {
-      id: 'bsc',
-      label: 'B.Sc',
-      badge: 'SCIENCE',
-      color: 'border-blue-400',
-      bgColor: 'bg-blue-400',
-      lightBg: 'bg-blue-50',
-      programs: [
-        'Data Science',
-        'Computer Application (CA) & (IT)',
-        'Clinical Research (Hons)',
-        'Mathematics (Hons)',
-        'Physics (Hons)',
-        'Chemistry (Hons)',
-        'Cyber Security (Hons)',
-        'Microbiology (Hons)',
-        'Computer Science (AI & ML)'
-      ]
-    },
-    {
-      id: 'msc',
-      label: 'M.Sc',
-      badge: 'MASTERS',
-      color: 'border-indigo-600',
-      bgColor: 'bg-indigo-600',
-      lightBg: 'bg-indigo-50',
-      programs: [
-        'Information Technology (IT)',
-        'Clinical Research',
-        'Mathematics',
-        'Physics',
-        'Chemistry',
-        'Cyber Security',
-        'Microbiology'
-      ]
-    },
-    {
-      id: 'mba-avia',
-      label: 'MBA/BBA',
-      badge: 'BUSINESS',
-      color: 'border-purple-600',
-      bgColor: 'bg-purple-600',
-      lightBg: 'bg-purple-50',
-      programs: [
-        'Aviation Management',
-        'BBA',
-        'Marketing',
-        'Finance',
-        'Human Resource'
-      ]
-    },
-    {
-      id: 'bca',
-      label: 'BCA',
-      badge: 'COMPUTER',
-      color: 'border-cyan-500',
-      bgColor: 'bg-cyan-500',
-      lightBg: 'bg-cyan-50',
-      programs: ['BCA']
-    },
-    {
-      id: 'mca',
-      label: 'MCA',
-      badge: 'POST-GRAD',
-      color: 'border-rose-500',
-      bgColor: 'bg-rose-500',
-      lightBg: 'bg-rose-50',
-      programs: ['MCA']
-    }
-  ];
 
   if (!selectedCategory) {
     return (
@@ -344,8 +147,9 @@ function Programs({ setActivePage }) {
   }
 
   return (
-    <div className="w-full">
-      <div className="w-full flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24 fade-in">
+    <>
+      <div className="w-full">
+        <div className="w-full flex-1 h-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24 fade-in">
       {/* Detail Header with Back Button */}
       <div className="mb-16 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <button 
@@ -431,25 +235,26 @@ function Programs({ setActivePage }) {
       </div>
 
     </div>
+    </div>
 
     {/* Program Details Sidebar */}
     {selectedProgram && (
       <div 
-        className="fixed left-0 md:left-64 right-0 top-0 bottom-0 z-[100] flex justify-end"
-        aria-labelledby="slide-over-title" 
+        className="fixed inset-y-0 right-0 z-[100] flex justify-end"
+        aria-labelledby="modal-title" 
         role="dialog" 
         aria-modal="true"
       >
         {/* Backdrop Overlay */}
         <div 
-          className="fixed inset-0 bg-slate-900/40 backdrop-blur-md transition-opacity duration-500 opacity-100" 
+          className="fixed inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity duration-500" 
           onClick={() => setSelectedProgram(null)}
         ></div>
 
-        {/* Slide-over panel */}
-        <div className="relative w-full max-w-2xl bg-[#fcfbf9] shadow-[-20px_0_80px_-20px_rgba(0,0,0,0.3)] h-full slide-in-right overflow-hidden flex flex-col">
+        {/* Sidebar panel */}
+        <div className="relative w-full max-w-2xl h-full bg-[#fcfbf9] shadow-2xl flex flex-col overflow-hidden slide-in-right border-l border-slate-100">
           {/* Header / Top Bar */}
-          <div className="px-14 pt-16 pb-6 flex justify-between items-start sticky top-0 bg-[#fcfbf9]/80 backdrop-blur-xl z-20">
+          <div className="px-10 pt-10 pb-6 flex justify-between items-start border-b border-gray-100 bg-[#fcfbf9]/95 z-20">
             <div className="flex-1">
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 bg-blue-50 rounded-full border border-blue-100 mb-4">
                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
@@ -461,17 +266,17 @@ function Programs({ setActivePage }) {
             
             <button 
               onClick={() => setSelectedProgram(null)}
-              className="mt-2 p-5 bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl hover:scale-110 active:scale-95 transition-all group"
+              className="mt-2 p-4 bg-white border border-slate-100 rounded-full shadow-sm hover:shadow-md hover:scale-110 active:scale-95 transition-all group shrink-0"
             >
-              <svg className="w-8 h-8 text-slate-400 group-hover:text-slate-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
+              <svg className="w-6 h-6 text-slate-400 group-hover:text-red-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
 
           {/* Main Content Area - Grid of Detail Squares */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar px-14 pb-24">
-            <div className="grid grid-cols-3 gap-4 pt-8 pb-4 max-w-[90%]">
+          <div className="flex-1 overflow-y-auto custom-scrollbar px-10 pb-10">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8 pb-4">
               {[
                 { title: 'CURRICULUM & LEARNING', color: 'bg-[#ffae4f]', id: 'CURRICULUM & LEARNING' },
                 { title: 'INDUSTRY EXPOSURE', color: 'bg-[#c9d09e]', id: 'INDUSTRY EXPOSURE' },
@@ -485,15 +290,14 @@ function Programs({ setActivePage }) {
                   key={i}
                   onClick={() => handleDetailClick(item.id)}
                   className={`
-                    relative aspect-square p-4 flex flex-col items-center justify-center text-center
-                    rounded-[2rem] cursor-pointer transition-all duration-500 group
-                    hover:scale-[1.02] hover:-translate-y-2
+                    relative aspect-video p-3 flex flex-col items-center justify-center text-center
+                    rounded-2xl cursor-pointer transition-all duration-300 group
+                    hover:scale-[1.02] hover:-translate-y-1
                     ${item.color} 
-                    ${selectedDetailSection === item.id ? 'shadow-2xl scale-[1.03] -translate-y-1 z-10' : 'shadow-sm hover:shadow-xl hover:z-10'}
-                    ${item.shadow ? 'shadow-[0_15px_35px_rgba(255,122,77,0.3)]' : ''}
+                    ${selectedDetailSection === item.id ? 'shadow-lg scale-[1.03] -translate-y-1 z-10 border-2 border-white' : 'shadow-sm hover:shadow-md hover:z-10'}
                   `}
                 >
-                  <h3 className="text-[16px] font-bold text-slate-900 leading-tight">
+                  <h3 className="text-[13px] font-bold text-slate-900 leading-tight">
                     {item.title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ')}
                   </h3>
                 </div>
@@ -501,27 +305,26 @@ function Programs({ setActivePage }) {
             </div>
 
             {/* Detail Content (Populated with actual data) */}
-            <div ref={detailContentRef} className="mt-2 p-10 bg-white rounded-[2.5rem] border border-slate-100 min-h-[400px] shadow-sm relative overflow-hidden">
+            <div ref={detailContentRef} className="mt-4 p-8 bg-white rounded-3xl border border-slate-100 min-h-[300px] shadow-sm relative overflow-hidden">
                {programData[selectedProgram] && programData[selectedProgram][selectedDetailSection] ? (
                  <div className="fade-in">
-                    <h3 className="text-2xl font-bold text-slate-900 mb-8">
+                    <h3 className="text-2xl font-bold text-slate-900 mb-6 pb-4 border-b border-gray-50">
                       {selectedDetailSection === 'CURRICULUM & LEARNING' ? 'Curriculum & Learning Areas' : 
                        selectedDetailSection === 'INDUSTRY EXPOSURE' ? 'Industry Exposure & Practical Learning' : 
                        selectedDetailSection === 'CAREER PROSPECTS' ? 'Career Opportunities' :
                        selectedDetailSection === 'ADMISSION' ? 'Admission Process' :
                        selectedDetailSection}
                     </h3>
-                    <div className="space-y-8">
+                    <div className="space-y-6">
                       {programData[selectedProgram][selectedDetailSection].sections.map((section, idx) => (
                         <div key={idx}>
-                          <h4 className="font-bold text-slate-800 text-xl mb-4 tracking-tight">
+                          <h4 className="font-bold text-slate-800 text-lg mb-3 tracking-tight">
                             {section.title}
                           </h4>
-                          
-                          <ul className="space-y-3 ml-2">
+                          <ul className="space-y-2 ml-1">
                             {section.items.map((item, i) => (
-                              <li key={i} className="flex items-start text-[16px] text-slate-600 font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-slate-900 mt-2 mr-4 opacity-80 shrink-0"></span>
+                              <li key={i} className="flex items-start text-[15px] text-slate-600 font-medium">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-brown mt-2 mr-3 opacity-80 shrink-0"></span>
                                 <span className="leading-relaxed">{item}</span>
                               </li>
                             ))}
@@ -531,11 +334,11 @@ function Programs({ setActivePage }) {
                     </div>
                  </div>
                ) : (
-                 <div className="h-full flex flex-col items-center justify-center text-center opacity-40 py-20">
-                    <svg className="w-16 h-16 text-slate-200 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                 <div className="h-full flex flex-col items-center justify-center text-center opacity-40 py-16">
+                    <svg className="w-12 h-12 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    <p className="text-[18px] text-slate-400 font-bold italic leading-relaxed">
+                    <p className="text-base text-slate-500 font-bold italic leading-relaxed">
                       Detailed information for "{selectedDetailSection}" <br/> is being updated for {selectedProgram}.
                     </p>
                  </div>
@@ -544,25 +347,24 @@ function Programs({ setActivePage }) {
           </div>
 
           {/* Bottom Contact / Action Bar */}
-          <div className="p-10 bg-white border-t border-slate-100 flex items-center justify-between pb-16">
+          <div className="px-10 py-6 bg-white border-t border-slate-100 flex items-center justify-between z-20">
             <div>
-              <p className="text-[9px] font-black text-slate-400 tracking-[0.2em] uppercase mb-1">Inquiry Support</p>
-              <p className="text-base font-bold text-slate-900">+91 74054 13342</p>
+              <p className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase mb-1">Inquiry Support</p>
+              <p className="text-xl font-black text-slate-900">{inquiryNumber}</p>
             </div>
             <button 
               onClick={() => {
                 if(setActivePage) setActivePage('admission');
               }}
-              className="px-8 py-3.5 bg-[#ff4d20] text-white text-[12px] font-black uppercase tracking-widest rounded-xl shadow-[0_10px_25px_rgba(255,77,32,0.3)] hover:scale-105 active:scale-95 transition-all"
+              className="px-8 py-4 bg-[#ff4d20] text-white text-[13px] font-black uppercase tracking-widest rounded-xl shadow-[0_10px_25px_rgba(255,77,32,0.3)] hover:scale-105 active:scale-95 transition-transform"
             >
               Apply Now
             </button>
           </div>
-
         </div>
       </div>
       )}
-    </div>
+    </>
   );
 }
 

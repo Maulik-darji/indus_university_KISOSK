@@ -1,18 +1,23 @@
 import React from 'react';
 
 function Institutes() {
-  const institutes = [
-    { name: 'IITE – Indus Institute of Technology & Engineering', desc: 'Upgrading technical skills as per industry requirements.' },
-    { name: 'IAS – Indus Architecture School', desc: 'Shaping the built environment through excellence.' },
-    { name: 'IDS – Indus Design School', desc: 'Fostering creativity and innovation in specialized design.' },
-    { name: 'IIICT – Indus Institute of Info. & Comm. Technology', desc: 'Leading the way in computing and IT research.' },
-    { name: 'IIMS – Indus Institute of Management Studies', desc: 'Where Practice Meets Theory in business management.' },
-    { name: 'IISHLS – Indus Institute of Sci. Humanities & Lib. Studies', desc: 'Interdisciplinary pursuit of sciences and humanities.' },
-    { name: 'IISS – Indus Institute of Special Studies', desc: 'Integrating traditional values and ethos.' },
-    { name: 'IIPR – Indus Institute of Pharmacy and Research', desc: 'High-quality education in pharmaceutical sciences.' },
-    { name: 'IIATE – Indus Institute of Aviation Tech & Engineering', desc: 'Specialized training in aviation and aerospace.' },
-    { name: 'IAGNI – Indus Advance Green Nanotechnology Institute', desc: 'Cutting-edge research in sustainable nanotechnology.' },
+  const defaultInstitutes = [
+    { id: 1, name: 'IITE – Indus Institute of Technology & Engineering', desc: 'Upgrading technical skills as per industry requirements.' },
+    { id: 2, name: 'IAS – Indus Architecture School', desc: 'Shaping the built environment through excellence.' },
+    { id: 3, name: 'IDS – Indus Design School', desc: 'Fostering creativity and innovation in specialized design.' },
+    { id: 4, name: 'IIICT – Indus Institute of Info. & Comm. Technology', desc: 'Leading the way in computing and IT research.' },
+    { id: 5, name: 'IIMS – Indus Institute of Management Studies', desc: 'Where Practice Meets Theory in business management.' },
+    { id: 6, name: 'IISHLS – Indus Institute of Sci. Humanities & Lib. Studies', desc: 'Interdisciplinary pursuit of sciences and humanities.' },
+    { id: 7, name: 'IISS – Indus Institute of Special Studies', desc: 'Integrating traditional values and ethos.' },
+    { id: 8, name: 'IIPR – Indus Institute of Pharmacy and Research', desc: 'High-quality education in pharmaceutical sciences.' },
+    { id: 9, name: 'IIATE – Indus Institute of Aviation Tech & Engineering', desc: 'Specialized training in aviation and aerospace.' },
+    { id: 10, name: 'IAGNI – Indus Advance Green Nanotechnology Institute', desc: 'Cutting-edge research in sustainable nanotechnology.' },
   ];
+
+  const [institutes, setInstitutes] = React.useState(() => {
+    const saved = localStorage.getItem('indus_institutes');
+    return saved ? JSON.parse(saved) : defaultInstitutes;
+  });
 
   return (
     <div className="fade-in max-w-5xl">

@@ -7,9 +7,9 @@ module.exports = {
     extend: {
       colors: {
         // Brand
-        'brand-brown': '#c8a97a',
+        'brand-brown': '#6f5c4e',
         'brand-dark': '#a07850',
-        'brand-light': '#f4ede4',
+        'brand-light': '#f2f0ee',
         // Dark UI
         'dark-base': '#0d0d0f',
         'dark-surface': '#141416',

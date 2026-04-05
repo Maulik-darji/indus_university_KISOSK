@@ -8,69 +8,86 @@ import Institutes from './pages/Institutes';
 import Events from './pages/Events';
 import SalientFeatures from './pages/SalientFeatures';
 import Placements from './pages/Placements';
+import Admin from './pages/Admin';
+
+function ScrollingTicker() {
+  const [tickerItems, setTickerItems] = React.useState(() => {
+    const stored = localStorage.getItem('indus_ticker');
+    return stored ? JSON.parse(stored) : ["⭐ INDUS CUP 2K26! Win Cash Prizes up to ₹10,00,000! ⭐", "🚀 Hackathon 2025 by CSE Department - Register Now! 🚀"];
+  });
+
+  React.useEffect(() => {
+    const handleStorage = () => {
+      const stored = localStorage.getItem('indus_ticker');
+      if (stored) setTickerItems(JSON.parse(stored));
+    };
+    window.addEventListener('storage', handleStorage);
+    window.addEventListener('ticker-update', handleStorage);
+    return () => {
+      window.removeEventListener('storage', handleStorage);
+      window.removeEventListener('ticker-update', handleStorage);
+    };
+  }, []);
+
+  const content = tickerItems.map((item, idx) => (
+    <div key={idx} className="flex items-center">
+      <span className="mx-16 text-slate-800 font-bold text-sm tracking-wide uppercase whitespace-nowrap">
+         {item}
+      </span>
+    </div>
+  ));
+  
+  return <>{content}{content}{content}</>;
+}
 
 function App() {
-  const [activePage, setActivePage] = useState('home');
+  const [activePage, setActivePage] = useState(() => {
+    if (window.location.hash === '#/admin' || window.location.pathname === '/admin') return 'admin';
+    return 'home';
+  });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const renderPage = () => {
     switch (activePage) {
-      case 'home':
-        return <Home setActivePage={setActivePage} />;
-      case 'admission':
-        return <Admission />;
-      case 'about':
-        return <About />;
-      case 'programs':
-        return <Programs setActivePage={setActivePage} />;
-      case 'institutes':
-        return <Institutes />;
-      case 'events':
-        return <Events />;
-      case 'facilities':
-        return <SalientFeatures />;
-      case 'placements':
-        return <Placements />;
+      case 'home': return <Home setActivePage={setActivePage} />;
+      case 'admission': return <Admission />;
+      case 'about': return <About />;
+      case 'programs': return <Programs setActivePage={setActivePage} />;
+      case 'institutes': return <Institutes />;
+      case 'events': return <Events />;
+      case 'facilities': return <SalientFeatures />;
+      case 'placements': return <Placements />;
       case 'map':
         return (
           <div className="fade-in">
-            <h2 className="text-3xl font-bold mb-6">Campus Map</h2>
+            <h2 className="text-3xl font-bold mb-6 text-black">Campus Map</h2>
             <div className="bg-gray-200 h-96 rounded-2xl flex items-center justify-center text-gray-500 italic">
               Interactive Map Loading...
             </div>
           </div>
         );
-      default:
-        return <Home setActivePage={setActivePage} />;
+      case 'admin': return <Admin />;
+      default: return <Home setActivePage={setActivePage} />;
     }
   };
 
+  if (activePage === 'admin') return <Admin />;
+
   return (
-    <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden bg-brand-light">
-      {/* Mobile Top Bar */}
+    <div className="flex flex-col md:flex-row h-screen w-full overflow-hidden bg-[#f2f0ee]">
       <header className="flex items-center justify-between p-4 bg-white border-b border-gray-200 md:hidden sticky top-0 z-50">
         <div className="font-bold text-gray-900 tracking-tight">INDUS UNIVERSITY</div>
-        <button 
-          className="p-2 text-2xl hover:bg-gray-100 rounded-lg transition-colors"
-          onClick={() => setIsSidebarOpen(true)}
-        >
-          &#9776;
-        </button>
+        <button className="p-2 text-2xl hover:bg-gray-100 rounded-lg transition-colors" onClick={() => setIsSidebarOpen(true)}>&#9776;</button>
       </header>
 
-      <Sidebar 
-        activePage={activePage} 
-        setActivePage={setActivePage} 
-        isOpen={isSidebarOpen} 
-        setIsOpen={setIsSidebarOpen}
-      />
+      <Sidebar activePage={activePage} setActivePage={setActivePage} isOpen={isSidebarOpen} setIsOpen={setIsSidebarOpen} />
 
       <main className="flex-1 h-full w-full overflow-hidden p-6 md:p-10 lg:p-12 pb-24 md:pb-24">
         <div className="w-full max-w-full mx-auto h-full overflow-y-auto pb-20">
           {activePage !== 'home' && (
             <button 
               onClick={() => setActivePage('home')}
-              className="mb-8 flex items-center gap-3 bg-white border border-gray-100 shadow-sm px-6 py-3 rounded-xl text-gray-700 hover:text-brand-brown font-bold text-xs md:text-sm tracking-wider uppercase hover:shadow-md hover:-translate-y-0.5 transition-all outline-none group"
+              className="mb-8 flex items-center gap-3 bg-white border border-gray-100 shadow-sm px-6 py-3 rounded-xl text-gray-700 hover:text-blue-600 font-bold text-xs md:text-sm tracking-wider uppercase hover:shadow-md hover:-translate-y-0.5 transition-all outline-none group"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -82,13 +99,10 @@ function App() {
         </div>
       </main>
 
-      {/* Ticker */}
-      <div className="fixed bottom-0 left-0 md:left-64 right-0 bg-white border-t border-gray-200 h-14 overflow-hidden flex items-center shadow-[0_-4px_10px_rgba(0,0,0,0.03)]">
-        <div className="animate-scroll whitespace-nowrap px-4 font-medium text-gray-700">
-          <span className="inline-block mr-12 text-brand-brown">⭐ INDUS CUP 2K26! Win Cash Prizes up to ₹10,00,000! ⭐</span>
-          <span className="inline-block mr-12 text-blue-600">🚀 Hackathon 2025 by CSE Department - Register Now! 🚀</span>
-          <span className="inline-block mr-12 text-brand-brown">⭐ INDUS CUP 2K26! Win Cash Prizes up to ₹10,00,000! ⭐</span>
-          <span className="inline-block mr-12 text-blue-600">🚀 Hackathon 2025 by CSE Department - Register Now! 🚀</span>
+      {/* Ticker Section */}
+      <div className="fixed bottom-0 left-0 md:left-64 right-0 bg-white border-t border-gray-200 h-16 overflow-hidden flex items-center shadow-[0_-8px_30px_rgba(0,0,0,0.04)] z-40">
+        <div className="flex animate-marquee whitespace-nowrap min-w-full items-center">
+          <ScrollingTicker />
         </div>
       </div>
     </div>

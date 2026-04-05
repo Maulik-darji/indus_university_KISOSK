@@ -26,6 +26,7 @@ import rAward14 from '../images/Indus University Arards in reasearch and innovat
 import rAward15 from '../images/Indus University Arards in reasearch and innovation/awards-and-recognition15.jpg';
 import rAward16 from '../images/Indus University Arards in reasearch and innovation/awards-and-recognition16.jpg';
 import rAward17 from '../images/Indus University Arards in reasearch and innovation/awards-and-recognition17.jpg';
+import bestResearcherImg from '../images/Indus Best researcher award/The-Best-Researcher-Award.jpg';
 
 function About() {
   const [selectedCard, setSelectedCard] = useState(null);
@@ -255,7 +256,7 @@ function About() {
   }
 
   return (
-    <div className="fade-in h-full overflow-y-auto custom-scrollbar pr-2 md:pr-4 pb-10" style={{ maxHeight: 'calc(100vh - 120px)' }}>
+    <div className="fade-in h-full overflow-y-auto custom-scrollbar px-10 md:px-16 pb-10" style={{ maxHeight: 'calc(100vh - 120px)' }}>
       <header className="mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-3">About Indus University</h1>
         <p className="text-lg text-gray-500">Knowledge Enlightens the World</p>
@@ -267,7 +268,7 @@ function About() {
               <h3 className="text-xl font-bold text-gray-800 mb-3">{card.title}</h3>
               <p className="text-gray-600 leading-relaxed text-sm md:text-base mb-6">{card.content}</p>
             </div>
-            <button className="py-2.5 px-4 text-sm border border-gray-200 rounded-xl font-semibold text-gray-700 hover:bg-brand-brown hover:text-white hover:border-brand-brown transition-all w-full text-center">
+            <button className="py-2.5 px-4 text-sm border border-gray-200 rounded-xl font-semibold text-gray-700 group-hover:bg-brand-brown group-hover:text-white group-hover:border-brand-brown hover:bg-brand-brown hover:text-white hover:border-brand-brown transition-all w-full text-center">
               Discover More
             </button>
           </div>

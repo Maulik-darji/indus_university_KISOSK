@@ -34,10 +34,10 @@ function Sidebar({ activePage, setActivePage, isOpen, setIsOpen }) {
             {menuItems.map((item) => (
               <li
                 key={item.id}
-                className={`p-4 rounded-xl cursor-pointer transition-colors duration-200 font-medium ${
+                className={`p-4 rounded-xl cursor-pointer transition-all duration-200 font-bold ${
                   activePage === item.id 
-                    ? 'bg-[#e8e3df] text-gray-900 shadow-sm' 
-                    : 'text-gray-600 hover:bg-gray-50'
+                    ? 'bg-[#e5e7eb] text-slate-900 shadow-sm' 
+                    : 'text-slate-600 hover:bg-slate-50'
                 }`}
                 onClick={() => handleNavigate(item.id)}
               >

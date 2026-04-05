@@ -22,7 +22,7 @@ function SalientFeatures() {
   ];
 
   return (
-    <div className="fade-in pb-20">
+    <div className="fade-in pb-20 px-10 md:px-16">
       <header className="mb-10">
         <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-4">
           Salient Features
