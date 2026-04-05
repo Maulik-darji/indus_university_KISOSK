@@ -32,7 +32,7 @@ function Home({ setActivePage }) {
               }
             }}
           >
-            <h3 className="text-xl font-semibold mb-2 group-hover:text-brand-brown transition-colors">{card.title}</h3>
+            <h3 className="text-xl font-semibold mb-2 transition-colors">{card.title}</h3>
             <p className="text-gray-500">{card.desc}</p>
           </div>
         ))}
