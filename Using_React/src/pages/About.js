@@ -28,7 +28,7 @@ import rAward16 from '../images/Indus University Arards in reasearch and innovat
 import rAward17 from '../images/Indus University Arards in reasearch and innovation/awards-and-recognition17.jpg';
 import bestResearcherImg from '../images/Indus Best researcher award/The-Best-Researcher-Award.jpg';
 
-function About() {
+function About({ setActivePage }) {
   const [selectedCard, setSelectedCard] = useState(null);
   const [expandedAward, setExpandedAward] = useState(null);
 
@@ -41,7 +41,6 @@ function About() {
     { title: 'Governance', content: 'Information regarding the leadership and administrative structure of the university.', icon: '' },
     { title: 'Awards and Recognition', content: 'Discover our accreditations, rankings, and major achievements.', icon: '' },
     { title: 'Committees', content: 'Details about various institutional committees and their organizational functions.', icon: '' },
-    { title: 'Public Self Disclosure / Mandatory Disclosure', content: 'Official public details, compliance records, and mandatory statutory disclosures.', icon: '' },
   ];
 
   if (selectedCard === 'Governance') {
@@ -263,7 +262,17 @@ function About() {
       </header>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
         {cards.map((card, idx) => (
-          <div key={idx} className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between hover:scale-[1.03] hover:shadow-xl transition-all duration-300 cursor-pointer group" onClick={() => setSelectedCard(card.title)}>
+          <div 
+            key={idx} 
+            className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between hover:scale-[1.03] hover:shadow-xl transition-all duration-300 cursor-pointer group" 
+            onClick={() => {
+              if (card.title === 'Committees' && typeof setActivePage === 'function') {
+                setActivePage('committees');
+              } else {
+                setSelectedCard(card.title);
+              }
+            }}
+          >
             <div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">{card.title}</h3>
               <p className="text-gray-600 leading-relaxed text-sm md:text-base mb-6">{card.content}</p>

@@ -7,8 +7,8 @@ const CenterModal = ({ isOpen, onClose, title, children }) => {
   return (
     <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" onClick={onClose}></div>
-      <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-lg p-8 scale-in flex flex-col max-h-[90vh]">
-        <h3 className="text-2xl font-black text-slate-800 mb-6">{title}</h3>
+      <div className="relative bg-white rounded-[1.5rem] shadow-2xl w-full max-w-sm p-7 scale-in flex flex-col max-h-[90vh]">
+        <h3 className="text-xl font-black text-slate-800 mb-4 text-center tracking-tight uppercase">{title}</h3>
         <div className="overflow-y-auto custom-scrollbar flex-1">{children}</div>
       </div>
     </div>
@@ -220,11 +220,20 @@ export default function Admin() {
             <p className="text-slate-500 font-bold text-lg italic">Welcome to the central control panel</p>
           </div>
           <div className="flex gap-4 items-center">
-            <button onClick={() => window.location.href = '/'} className="px-6 py-3 bg-slate-200 border border-slate-300/50 text-slate-800 rounded-xl font-black hover:bg-slate-300 text-sm transition-all shadow-sm uppercase tracking-wider">Return to Website</button>
+            <button 
+              onClick={() => {
+                localStorage.setItem('indus_active_page', 'home');
+                window.location.href = '/';
+              }} 
+              className="px-6 py-3 bg-slate-200 border border-slate-300/50 text-slate-800 rounded-xl font-black hover:bg-slate-300 text-sm transition-all shadow-sm uppercase tracking-wider"
+            >
+              Return to Website
+            </button>
             <button
               onClick={() => {
                 setIsAuth(false);
                 localStorage.removeItem('indus_admin_session');
+                localStorage.setItem('indus_active_page', 'home');
                 window.location.href = '/';
               }}
               className="px-6 py-3 bg-red-100 text-red-600 rounded-xl font-bold hover:bg-red-200 text-sm transition-colors"
@@ -255,7 +264,7 @@ export default function Admin() {
 
         {/* Tab Contents */}
         {activeTab === 'categories' && (
-          <AdminCategories confirmDelete={confirmDelete} CenterModal={CenterModal} />
+          <AdminCategories confirmDelete={confirmDelete} setModalConfig={setModalConfig} />
         )}
 
         {activeTab === 'events' && (

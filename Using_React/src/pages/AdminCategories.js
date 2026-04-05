@@ -14,7 +14,88 @@ const defaultCategories = [
   { id: 'mca', label: 'MCA', badge: 'POST-GRAD', color: 'border-rose-500', bgColor: 'bg-rose-500', lightBg: 'bg-rose-50', programs: ['MCA'] }
 ];
 
-export default function AdminCategories({ confirmDelete, CenterModal }) {
+const getProgramFee = (categoryId, programName) => {
+  if (categoryId === 'diploma') return '32,106';
+  if (categoryId === 'btech' || categoryId === 'btech-dtd') return '60,220';
+  if (categoryId === 'mtech') return '78,058';
+  if (categoryId === 'mca') return '54,353';
+  if (categoryId === 'bca') return '37,700';
+  
+  if (categoryId === 'mba-avia') {
+    if (programName === 'BBA') return '37,850';
+    if (programName === 'Aviation Management' || programName === 'Marketing' || programName === 'Finance' || programName === 'Human Resource') return '58,453'; 
+    return 'Being Updated'; 
+  }
+  
+  if (categoryId === 'bdes') return '159,000';
+  if (categoryId === 'mdes') return '56,750';
+
+  if (categoryId === 'bsc') {
+    if (programName.includes('Data Science') || programName.includes('Computer Science')) return '43,200';
+    if (programName.includes('Cyber Security')) return '59,700';
+    if (programName.includes('Clinical Research')) return '54,350';
+    if (programName.includes('Chemistry') || programName.includes('Mathematics') || programName.includes('Physics')) return '26,800';
+    if (programName.includes('Microbiology')) return '37,800';
+    return '37,700';
+  }
+  
+  if (categoryId === 'msc') {
+    if (programName.includes('Cyber Security')) return '67,150';
+    if (programName.includes('Information Technology')) return '56,150';
+    if (programName.includes('Chemistry')) return '39,100';
+    if (programName.includes('Clinical Research')) return '78,150';
+    if (programName.includes('Mathematics')) return '28,050';
+    if (programName.includes('Physics')) return '33,850';
+    if (programName.includes('Microbiology')) return '42,750';
+    return 'Being Updated';
+  }
+  return 'Being Updated';
+};
+
+const getProgramEligibility = (categoryId, programName) => {
+  let e = { text: 'Being Updated', duration: 'Being Updated' };
+
+  if (categoryId === 'btech') {
+    e = { text: '10 + 2 SCIENCE WITH MIN 45% IN PCM OR EQUIVALENT FROM A RECOGNIZED BOARD', duration: '4 Years (8 Semesters)' };
+  } else if (categoryId === 'btech-dtd') {
+    e = { text: 'ANY DIPLOMA ENGINEERING WITH MIN 50% OR EQUIVALENT WITH DDCET EXAM FROM A RECOGNIZED UNIVERSITY', duration: '3 Years (6 Semesters)' };
+  } else if (categoryId === 'diploma') {
+    e = { text: '10TH PASS WITH MIN 45% OR EQUIVALENT FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+  } else if (categoryId === 'mtech') {
+    e = { text: 'B.E/BTECH WITH MIN 50% IN RELEVANT FIELD OR EQUIVALENT FROM A RECOGNIZED UNIVERSITY', duration: '2 Years (4 Semesters)' };
+  } else if (categoryId === 'bca') {
+    e = { text: '10+2 OR EQUIVALENT FROM A RECOGNIZED BOARD (SCIENCE/COMMERCE/ARTS)', duration: '5 Years (10 Semesters)' };
+  } else if (categoryId === 'mca') {
+    e = { text: 'ANY GRADUATE FROM ANY RECOGNIZED UNIVERSITY WITH MIN 50% FOR GENEREAL 45% FOR SC/ST/SEBC/EWS', duration: '2 Years (4 Semesters)' };
+  } else if (categoryId === 'mba-avia') {
+    if (programName === 'BBA') {
+      e = { text: '10+2 WITH MATHS OR STATICS AS A SUBJECT OR EQUIVALENT', duration: '3 Years (6 Semesters)' };
+    } else {
+      e = { text: 'ANY GRADUATE OR EQUIVALENT WITH MIN 50% FROM A RECOGNIZED UNIVERSITY', duration: '2 Years (4 Semesters)' };
+    }
+  } else if (categoryId === 'bsc') {
+    if (programName.includes('Clinical Research') || programName.includes('Microbiology')) {
+      e = { text: '10+2 OR EQUIVALENT WITH PCB ONLY FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+    } else if (programName.includes('Mathematics') || programName.includes('Physics') || programName.includes('Chemistry')) {
+      e = { text: '10+2 OR EQUIVALENT WITH PCM ONLY FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+    } else {
+      e = { text: '10+2 WITH MATHS OR STATICS AS A SUBJECT OR EQUIVALENT FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+    }
+  } else if (categoryId === 'msc') {
+    if (programName.includes('Cyber Security')) {
+      e = { text: 'ANY GRADUATE FROM ANY RECOGNIZED UNIVERSITY WITH MIN 50% FOR GENEREAL 45% FOR SC/ST/SEBC/EWS', duration: '2 Years (4 Semesters)' };
+    } else if (programName.includes('Information Technology')) {
+      e = { text: 'GRADUATE FROM (BSC IT,BSC CS,BSC DS,BCA,BSC CYBER SECURITY) RECOGNIZED UNIVERSITY WITH MIN 50% FOR GENEREAL, 45% FOR SC/ST/SEBC/EWS', duration: '2 Years (4 Semesters)' };
+    } else if (programName.includes('Microbiology')) {
+      e = { text: 'BSC MICROBIOLOGY OR EQUIVALENT WITH MIN 50%', duration: '2 Years (4 Semesters)' };
+    } else {
+      e = { text: 'BSC IN RELEVANT FIELD OR EQUIVALENT FROM A RECOGNIZED UNIVERSITY WITH MIN 50%', duration: '2 Years (4 Semesters)' };
+    }
+  }
+  return e;
+};
+
+export default function AdminCategories({ confirmDelete, setModalConfig }) {
   const [categories, setCategories] = useState([]);
   const [catForm, setCatForm] = useState({ id: '', label: '', badge: '', color: 'border-blue-500', bgColor: 'bg-blue-500', lightBg: 'bg-blue-50', programs: '' });
 
@@ -26,6 +107,7 @@ export default function AdminCategories({ confirmDelete, CenterModal }) {
   const [programData, setProgramData] = useState({});
   const [selectedProgramEdit, setSelectedProgramEdit] = useState('');
   const [jsonInput, setJsonInput] = useState('');
+  const [originalJsonInput, setOriginalJsonInput] = useState('');
   const [jsonError, setJsonError] = useState('');
   const [newCourseName, setNewCourseName] = useState('');
 
@@ -75,8 +157,32 @@ export default function AdminCategories({ confirmDelete, CenterModal }) {
 
   const handleProgramSelect = (prog) => {
     setSelectedProgramEdit(prog);
+    const catId = categories.find(c => c.programs.includes(prog))?.id;
     const data = programData[prog] || { 'CURRICULUM & LEARNING': { sections: [{ title: 'Overview', items: ['Point 1'] }] } };
-    setJsonInput(JSON.stringify(data, null, 2));
+
+    // Auto-seed centralized rules into the raw editor schema if missing
+    if (!data['FEES STRUCTURE']) {
+       const f = getProgramFee(catId, prog);
+       data['FEES STRUCTURE'] = { 
+         sections: [{ 
+           title: 'Academic Fees Structure', 
+           items: [f === 'Being Updated' ? 'Total 1st Semester Fees: Being Updated for 2026' : `Total 1st Semester Fees: ₹${f}`] 
+         }] 
+       };
+    }
+    if (!data['ELIGIBILITY']) {
+       const e = getProgramEligibility(catId, prog);
+       data['ELIGIBILITY'] = { 
+         sections: [{ 
+           title: 'Academic Eligibility', 
+           items: [`Criteria: ${e.text}`, `Duration: ${e.duration}`] 
+         }] 
+       };
+    }
+
+    const serialized = JSON.stringify(data, null, 2);
+    setJsonInput(serialized);
+    setOriginalJsonInput(serialized);
     setJsonError('');
   };
 
@@ -85,7 +191,12 @@ export default function AdminCategories({ confirmDelete, CenterModal }) {
       const parsed = JSON.parse(jsonInput);
       setJsonError('');
       saveProgData({ ...programData, [selectedProgramEdit]: parsed });
-      alert('Program details updated successfully!');
+      setOriginalJsonInput(jsonInput);
+      setModalConfig({
+        isOpen: true,
+        title: 'Success!',
+        content: <p className="text-slate-600 mb-6 font-bold text-center">Program details updated successfully!</p>
+      });
       setSelectedProgramEdit('');
     } catch (err) {
       setJsonError('Invalid JSON format: ' + err.message);
@@ -103,19 +214,42 @@ export default function AdminCategories({ confirmDelete, CenterModal }) {
     saveCats(updatedCats);
     setSelectedCategoryNav(updatedCats.find(c => c.id === selectedCategoryNav.id));
     setNewCourseName('');
-    alert('New course added to track!');
+    setModalConfig({
+      isOpen: true,
+      title: 'Success!',
+      content: <p className="text-slate-600 mb-6 font-bold text-center">New course added to track!</p>
+    });
   };
 
   const handleRemoveCourse = (courseName) => {
-    if (!window.confirm(`Delete course "${courseName}"?`)) return;
-    const updatedCats = categories.map(c => {
-      if (c.id === selectedCategoryNav.id) {
-        return { ...c, programs: c.programs.filter(p => p !== courseName) };
-      }
-      return c;
+    setModalConfig({
+      isOpen: true,
+      title: 'Confirm Deletion',
+      content: (
+        <div>
+          <p className="text-slate-600 mb-8 text-lg font-medium">Are you sure you want to delete <strong>{courseName}</strong>? This action cannot be undone.</p>
+          <div className="flex gap-4">
+            <button onClick={() => setModalConfig({ isOpen: false, title: '', content: null })} className="flex-1 py-4 bg-slate-100 rounded-xl font-bold text-slate-600 hover:bg-slate-200">Cancel</button>
+            <button
+              onClick={() => {
+                const updatedCats = categories.map(c => {
+                  if (c.id === selectedCategoryNav.id) {
+                    return { ...c, programs: c.programs.filter(p => p !== courseName) };
+                  }
+                  return c;
+                });
+                saveCats(updatedCats);
+                setSelectedCategoryNav(updatedCats.find(c => c.id === selectedCategoryNav.id));
+                setModalConfig({ isOpen: false, title: '', content: null });
+              }}
+              className="flex-1 py-4 bg-red-500 rounded-xl font-bold text-white hover:bg-red-600 shadow-[0_4px_15px_rgba(239,68,68,0.3)]"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      )
     });
-    saveCats(updatedCats);
-    setSelectedCategoryNav(updatedCats.find(c => c.id === selectedCategoryNav.id));
   };
 
   const [activeMetadataTab, setActiveMetadataTab] = useState('CURRICULUM & LEARNING');
@@ -192,7 +326,17 @@ export default function AdminCategories({ confirmDelete, CenterModal }) {
             </div>
           </div>
 
-          <button onClick={handleJsonSave} className="bg-slate-900 text-white font-black px-8 py-3.5 rounded-xl hover:bg-black transition-all shadow-sm hover:shadow-md text-[11px] uppercase tracking-widest">Save Spectrum</button>
+          <button 
+            onClick={handleJsonSave} 
+            disabled={jsonInput === originalJsonInput}
+            className={`font-black px-8 py-3.5 rounded-xl transition-all shadow-sm text-[11px] uppercase tracking-widest ${
+              jsonInput !== originalJsonInput
+                ? 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-md shadow-blue-600/20'
+                : 'bg-slate-100/50 text-slate-400 border border-slate-200 cursor-not-allowed shadow-none'
+            }`}
+          >
+            {jsonInput !== originalJsonInput ? 'Save Changes' : 'Saved'}
+          </button>
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 bg-[#f7f6f3] p-8 rounded-[1rem] border border-slate-200 shadow-sm">

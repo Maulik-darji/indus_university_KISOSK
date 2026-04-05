@@ -8,6 +8,7 @@ import Institutes from './pages/Institutes';
 import Events from './pages/Events';
 import SalientFeatures from './pages/SalientFeatures';
 import Placements from './pages/Placements';
+import Committees from './pages/Committees';
 import Admin from './pages/Admin';
 
 function ScrollingTicker() {
@@ -42,19 +43,30 @@ function ScrollingTicker() {
 
 function App() {
   const [activePage, setActivePage] = useState(() => {
+    // 1. Check if we're explicitly hitting the admin path
     if (window.location.hash === '#/admin' || window.location.pathname === '/admin') return 'admin';
-    return 'home';
+    
+    // 2. Try to recover from localStorage
+    const saved = localStorage.getItem('indus_active_page');
+    return saved || 'home';
   });
+
+  // Persist page changes
+  React.useEffect(() => {
+    localStorage.setItem('indus_active_page', activePage);
+  }, [activePage]);
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const renderPage = () => {
     switch (activePage) {
       case 'home': return <Home setActivePage={setActivePage} />;
       case 'admission': return <Admission />;
-      case 'about': return <About />;
+      case 'about': return <About setActivePage={setActivePage} />;
       case 'programs': return <Programs setActivePage={setActivePage} />;
       case 'institutes': return <Institutes />;
       case 'events': return <Events />;
+      case 'committees': return <Committees />;
       case 'facilities': return <SalientFeatures />;
       case 'placements': return <Placements />;
       case 'map':
@@ -88,13 +100,16 @@ function App() {
             <div className="flex justify-start">
               {activePage !== 'home' && (
                 <button 
-                  onClick={() => setActivePage('home')}
+                  onClick={() => {
+                    if (activePage === 'committees') setActivePage('about');
+                    else setActivePage('home');
+                  }}
                   className="flex items-center gap-3 bg-white border border-gray-100 shadow-sm px-6 py-3 rounded-xl text-gray-700 hover:text-blue-600 font-bold text-xs md:text-sm tracking-wider uppercase hover:shadow-md hover:-translate-y-0.5 transition-all outline-none group w-fit h-fit"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 md:h-5 md:w-5 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={4}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
-                  Home
+                  {activePage === 'committees' ? 'About Indus' : 'Home'}
                 </button>
               )}
             </div>
@@ -104,6 +119,7 @@ function App() {
                 {activePage === 'programs' && "Academic Categories"}
                 {activePage === 'about' && "About Indus"}
                 {activePage === 'institutes' && "Our Institutes"}
+                {activePage === 'committees' && "University Committees"}
                 {activePage === 'events' && "University Events"}
               </h1>
             </div>

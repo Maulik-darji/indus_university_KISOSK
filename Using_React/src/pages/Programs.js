@@ -16,6 +16,94 @@ const commonBtechFees = {
   ]
 };
 
+const commonDiplomaFees = {
+  sections: [
+    { title: 'Academic Fees Structure', items: ['Total 1st Semester Fees: ₹32,106'] }
+  ]
+};
+
+const getProgramFee = (categoryId, programName) => {
+  if (categoryId === 'diploma') return '32,106';
+  if (categoryId === 'btech' || categoryId === 'btech-dtd') return '60,220';
+  if (categoryId === 'mtech') return '78,058';
+  if (categoryId === 'mca') return '54,353';
+  if (categoryId === 'bca') return '37,700';
+  
+  if (categoryId === 'mba-avia') {
+    if (programName === 'BBA') return '37,850';
+    if (programName === 'Aviation Management' || programName === 'Marketing' || programName === 'Finance' || programName === 'Human Resource') return '58,453'; 
+    return 'Being Updated'; 
+  }
+  
+  if (categoryId === 'bdes') return '159,000';
+  if (categoryId === 'mdes') return '56,750';
+
+  if (categoryId === 'bsc') {
+    if (programName.includes('Data Science') || programName.includes('Computer Science')) return '43,200';
+    if (programName.includes('Cyber Security')) return '59,700';
+    if (programName.includes('Clinical Research')) return '54,350';
+    if (programName.includes('Chemistry') || programName.includes('Mathematics') || programName.includes('Physics')) return '26,800';
+    if (programName.includes('Microbiology')) return '37,800';
+    return '37,700'; // Default for CA/IT or unlisted B.Sc
+  }
+  
+  if (categoryId === 'msc') {
+    if (programName.includes('Cyber Security')) return '67,150';
+    if (programName.includes('Information Technology')) return '56,150';
+    if (programName.includes('Chemistry')) return '39,100';
+    if (programName.includes('Clinical Research')) return '78,150';
+    if (programName.includes('Mathematics')) return '28,050';
+    if (programName.includes('Physics')) return '33,850';
+    if (programName.includes('Microbiology')) return '42,750';
+    return 'Being Updated';
+  }
+  
+  return 'Being Updated';
+};
+
+const getProgramEligibility = (categoryId, programName) => {
+  let e = { text: 'Being Updated', duration: 'Being Updated' };
+
+  if (categoryId === 'btech') {
+    e = { text: '10 + 2 SCIENCE WITH MIN 45% IN PCM OR EQUIVALENT FROM A RECOGNIZED BOARD', duration: '4 Years (8 Semesters)' };
+  } else if (categoryId === 'btech-dtd') {
+    e = { text: 'ANY DIPLOMA ENGINEERING WITH MIN 50% OR EQUIVALENT WITH DDCET EXAM FROM A RECOGNIZED UNIVERSITY', duration: '3 Years (6 Semesters)' };
+  } else if (categoryId === 'diploma') {
+    e = { text: '10TH PASS WITH MIN 45% OR EQUIVALENT FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+  } else if (categoryId === 'mtech') {
+    e = { text: 'B.E/BTECH WITH MIN 50% IN RELEVANT FIELD OR EQUIVALENT FROM A RECOGNIZED UNIVERSITY', duration: '2 Years (4 Semesters)' };
+  } else if (categoryId === 'bca') {
+    e = { text: '10+2 OR EQUIVALENT FROM A RECOGNIZED BOARD (SCIENCE/COMMERCE/ARTS)', duration: '5 Years (10 Semesters)' };
+  } else if (categoryId === 'mca') {
+    e = { text: 'ANY GRADUATE FROM ANY RECOGNIZED UNIVERSITY WITH MIN 50% FOR GENEREAL 45% FOR SC/ST/SEBC/EWS', duration: '2 Years (4 Semesters)' };
+  } else if (categoryId === 'mba-avia') {
+    if (programName === 'BBA') {
+      e = { text: '10+2 WITH MATHS OR STATICS AS A SUBJECT OR EQUIVALENT', duration: '3 Years (6 Semesters)' };
+    } else {
+      e = { text: 'ANY GRADUATE OR EQUIVALENT WITH MIN 50% FROM A RECOGNIZED UNIVERSITY', duration: '2 Years (4 Semesters)' };
+    }
+  } else if (categoryId === 'bsc') {
+    if (programName.includes('Clinical Research') || programName.includes('Microbiology')) {
+      e = { text: '10+2 OR EQUIVALENT WITH PCB ONLY FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+    } else if (programName.includes('Mathematics') || programName.includes('Physics') || programName.includes('Chemistry')) {
+      e = { text: '10+2 OR EQUIVALENT WITH PCM ONLY FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+    } else {
+      e = { text: '10+2 WITH MATHS OR STATICS AS A SUBJECT OR EQUIVALENT FROM A RECOGNIZED BOARD', duration: '3 Years (6 Semesters)' };
+    }
+  } else if (categoryId === 'msc') {
+    if (programName.includes('Cyber Security')) {
+      e = { text: 'ANY GRADUATE FROM ANY RECOGNIZED UNIVERSITY WITH MIN 50% FOR GENEREAL 45% FOR SC/ST/SEBC/EWS', duration: '2 Years (4 Semesters)' };
+    } else if (programName.includes('Information Technology')) {
+      e = { text: 'GRADUATE FROM (BSC IT,BSC CS,BSC DS,BCA,BSC CYBER SECURITY) RECOGNIZED UNIVERSITY WITH MIN 50% FOR GENEREAL, 45% FOR SC/ST/SEBC/EWS', duration: '2 Years (4 Semesters)' };
+    } else if (programName.includes('Microbiology')) {
+      e = { text: 'BSC MICROBIOLOGY OR EQUIVALENT WITH MIN 50%', duration: '2 Years (4 Semesters)' };
+    } else {
+      e = { text: 'BSC IN RELEVANT FIELD OR EQUIVALENT FROM A RECOGNIZED UNIVERSITY WITH MIN 50%', duration: '2 Years (4 Semesters)' };
+    }
+  }
+  return e;
+};
+
 const defaultProgramData = {
   'Information & Communication Technology (ICT)': {
     'CURRICULUM & LEARNING': {
@@ -56,7 +144,16 @@ const defaultProgramData = {
   'Aircraft Maintenance Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
   'Aeronautical Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
   'Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
-  'Defence Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees }
+  'Defence Aerospace Engineering': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonBtechFees },
+  
+  // Diploma Programs
+  'Information & Communication Technology (ICT) ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
+  'Civil Engineering ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
+  'Automobile Engineering ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
+  'Mechanical Engineering ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
+  'Computer Engineering ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
+  'Electrical Engineering ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
+  'Electronics & Communication Engineering ': { 'ELIGIBILITY': commonBtechEligibility, 'FEES STRUCTURE': commonDiplomaFees },
 };
 
 const defaultCategories = [
@@ -293,7 +390,7 @@ function Programs({ setActivePage }) {
 
             {/* Detail Content (Populated with actual data) */}
             <div ref={detailContentRef} className="mt-4 p-8 bg-white rounded-3xl border border-slate-100 min-h-[300px] shadow-sm relative overflow-hidden">
-               {programData[selectedProgram] && programData[selectedProgram][selectedDetailSection] ? (
+               {(programData[selectedProgram] && programData[selectedProgram][selectedDetailSection]) || selectedDetailSection === 'FEES STRUCTURE' || selectedDetailSection === 'ELIGIBILITY' ? (
                  <div className="fade-in">
                     <h3 className="text-2xl font-bold text-slate-900 mb-6 pb-4 border-b border-gray-50">
                       {selectedDetailSection === 'CURRICULUM & LEARNING' ? 'Curriculum & Learning Areas' : 
@@ -303,21 +400,56 @@ function Programs({ setActivePage }) {
                        selectedDetailSection}
                     </h3>
                     <div className="space-y-6">
-                      {programData[selectedProgram][selectedDetailSection].sections.map((section, idx) => (
-                        <div key={idx}>
-                          <h4 className="font-bold text-slate-800 text-lg mb-3 tracking-tight">
-                            {section.title}
-                          </h4>
-                          <ul className="space-y-2 ml-1">
-                            {section.items.map((item, i) => (
-                              <li key={i} className="flex items-start text-[15px] text-slate-600 font-medium">
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-brown mt-2 mr-3 opacity-80 shrink-0"></span>
-                                <span className="leading-relaxed">{item}</span>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      ))}
+                      {/* Smart Data Resolution */}
+                      {(() => {
+                        let activeSectionData = programData[selectedProgram]?.[selectedDetailSection];
+                        
+                        // Seed dynamic fallbacks just-in-time if standard JSON is missing
+                        if (!activeSectionData && selectedDetailSection === 'FEES STRUCTURE') {
+                          const f = getProgramFee(selectedCategory.id, selectedProgram);
+                          activeSectionData = { 
+                            sections: [{ 
+                              title: 'Academic Fees Structure', 
+                              items: [f === 'Being Updated' ? 'Total 1st Semester Fees: Being Updated for 2026' : `Total 1st Semester Fees: ₹${f}`] 
+                            }] 
+                          };
+                        } else if (!activeSectionData && selectedDetailSection === 'ELIGIBILITY') {
+                          const e = getProgramEligibility(selectedCategory.id, selectedProgram);
+                          activeSectionData = { 
+                            sections: [{ 
+                              title: 'Academic Eligibility', 
+                              items: [`Criteria: ${e.text}`, `Duration: ${e.duration}`] 
+                            }] 
+                          };
+                        }
+
+                        if (!activeSectionData) return null;
+
+                        return activeSectionData.sections.map((section, idx) => (
+                          <div key={idx}>
+                            <h4 className="font-bold text-slate-800 text-lg mb-3 tracking-tight">
+                              {section.title}
+                            </h4>
+                            <ul className="space-y-4 ml-1">
+                              {section.items.map((item, i) => (
+                                <li key={i} className="flex items-start text-[15px] text-slate-600 font-medium">
+                                  <span className="w-1.5 h-1.5 rounded-full bg-brand-brown mt-2 mr-3 opacity-80 shrink-0"></span>
+                                  <span className="leading-relaxed">
+                                    {/* Make Criteria/Duration boldly highlighted if they match standard patterns */}
+                                    {item.startsWith('Criteria:') ? (
+                                      <><strong className="text-slate-800">Criteria:</strong> {item.replace('Criteria:', '')}</>
+                                    ) : item.startsWith('Duration:') ? (
+                                      <><strong className="text-slate-800">Duration:</strong> {item.replace('Duration:', '')}</>
+                                    ) : (
+                                      item
+                                    )}
+                                  </span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        ));
+                      })()}
                     </div>
                  </div>
                ) : (
